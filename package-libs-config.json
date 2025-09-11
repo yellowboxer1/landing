@@ -1,0 +1,13 @@
+{
+    "packagesToCopy": [
+        "@alpinejs/mask",
+        "@popperjs/core",
+        "@ryangjchandler/alpine-tooltip",
+        "alpinejs",
+        "alpinejs-masonry",
+        "flatpickr",
+        "lucide",
+        "simplebar",
+        "tailwindcss"
+    ]
+}

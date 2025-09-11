@@ -1,0 +1,448 @@
+{{> partials/landing }}
+
+<head>
+
+    {{> partials/title-meta title="파트너잇" }}
+
+    <link href="/assets/libs/flatpickr/flatpickr.css" rel="stylesheet">
+    <!-- plugins CSS -->
+    <link rel="stylesheet" href="assets/css/plugins.css">
+    <!-- Icons CSS -->
+    <link rel="stylesheet" href="assets/css/icons.css">
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="assets/css/tailwind.css">
+
+    <script type="module" src="assets/js/admin.bundle.js"></script>
+
+</head>
+
+{{> partials/body }}
+
+<div x-data="{ isSticky: false , isMenuOpen: false , activeTab: 0 }" x-init="window.addEventListener('scroll', () => { isSticky = window.scrollY > 0 })">
+    <header class="landing-navbar h-20 top-0 [&.scroll-sticky]:top-0 [&.scroll-sticky]:shadow-gray-200/50 [&.scroll-sticky]:shadow-lg [&.scroll-sticky]:bg-white dark:[&.scroll-sticky]:shadow-dark-850 dark:[&.scroll-sticky]:bg-dark-900" :class="{ 'scroll-sticky': isSticky }">
+        <div class="container mx-auto px-4 flex items-center justify-between w-full gap-5">
+            <a href="index.html" title="logo">
+                <img src="assets/images/main-logo.svg" alt="" class="inline-block h-7 dark:hidden">
+                <img src="assets/images/logo-white.svg" alt="" class="hidden h-7 dark:inline-block">
+            </a>
+            <div class="navbar-collapase ltr:mr-auto rtl:ml-auto" :class="{ 'hidden xl:flex': !isMenuOpen }">
+                <div x-data="tabsHandler()" @scroll.window="updateTabOnScroll" class="flex flex-col xl:flex-row xl:items-center *:py-3 xl:py-0 xl:*:px-3 *:inline-block *:text-16 *:tracking-wide *:font-medium">
+
+                    <a href="#services" @click="setActive(1)" :class="{ 'active': activeTab === 1 }" class="leading-normal [&.active]:text-primary-500 hover:text-primary-500 transition duration-300 ease-linear">
+                        파트너잇 소개
+                    </a>
+                    <a href="#features" @click="setActive(3)" :class="{ 'active': activeTab === 3 }" class="leading-normal [&.active]:text-primary-500 hover:text-primary-500 transition duration-300 ease-linear">
+                        주요기능
+                    </a>
+                    <a href="#pricing" @click="setActive(2)" :class="{ 'active': activeTab === 2 }" class="leading-normal [&.active]:text-primary-500 hover:text-primary-500 transition duration-300 ease-linear">
+                        요금정책
+                    </a>
+                    <a href="#cases" @click="setActive(4)" :class="{ 'active': activeTab === 4 }" class="leading-normal [&.active]:text-primary-500 hover:text-primary-500 transition duration-300 ease-linear">
+                        고객사례
+                    </a>
+                    <a href="#faq" @click="setActive(5)" :class="{ 'active': activeTab === 5 }" class="leading-normal [&.active]:text-primary-500 hover:text-primary-500 transition duration-300 ease-linear">
+                        FAQ's
+                    </a>
+                </div>
+            </div>
+            <button @click="isMenuOpen = !isMenuOpen" type="button" class="rounded-full xl:ltr:ml-0 xl:rtl:mr-0 ltr:ml-auto rtl:mr-auto navbar-toggle btn btn-sub-sky btn-icon xl:!hidden">
+                <i :class="isMenuOpen ? 'ri-close-line' : 'ri-menu-2-line'" class="text-lg"></i>
+            </button>
+            <div>
+                <a href="auth-signin-basic.html" class="btn btn-active-gray">Sign In</a>
+                <button type="button" class="hidden btn btn-sub-primary md:inline-block">Get for free</button>
+            </div>
+        </div>
+    </header>
+</div>
+<section class="relative pb-20 overflow-hidden pt-28 lg:pt-40 xl:pb-48 2xl:pt-80">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-12 lg:gap-x-16">
+            <div class="col-span-12 xl:col-span-5" data-aos="fade-up" data-aos-duration="2000">
+                <h2 class="mb-2 leading-normal capitalize xl:leading-normal xl:text-5xl">이제 AI가 내 기업에 맞는 <span class="text-primary-500">기회</span>만 보여줍니다.</h2>
+                <p class="mb-5 text-lg text-gray-500 dark:text-dark-500">공고 찾느라 허비한 시간, 단 5분만에 해결하세요! 기업의 소중한 시간을 지켜 드립니다.</p>
+                <div class="flex flex-wrap items-center gap-3">
+                    <a href="#pricing" class="btn btn-primary">무료 체험하기 <i data-lucide="move-right" class="inline-block ml-1 size-4"></i></a>
+                    <button type="button" class="border-gray-200 dark:border-dark-800 btn btn-outline-gray">더 알아보기</button>
+                </div>
+            </div>
+            <div class="col-span-12 mt-8 xl:col-span-6 xl:col-start-7 md:mt-10 xl:mt-0">
+                <div>
+                    <img src="assets/images/email/main.png" alt="" class="relative dark:hidden xl:scale-[1.8] object-cover border border-gray-200 dark:border-dark-800 rounded-lg ltr:xl:-right-44 rtl:xl:-left-44 xl:top-16 2xl:top-auto">
+                    <img src="assets/images/email/email-dark.png" alt="" class="relative hidden dark:block xl:scale-[1.8] object-cover border border-gray-200 dark:border-dark-800 rounded-lg ltr:xl:-right-44 rtl:xl:-left-44 xl:top-16 2xl:top-auto">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="relative py-12 md:py-24 bg-gray-50 dark:bg-dark-900/50" id="services">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space">
+            <div data-aos="fade-up" data-aos-duration="2000">
+                <div class="p-4 mb-4 bg-white rounded-lg text-primary-500 size-14 dark:bg-dark-900">
+                    <i data-lucide="fan" class="fill-primary-500/20"></i>
+                </div>
+                <h5 class="mb-1">AI 분석 리포트</h5>
+                <p class="mb-4 text-gray-500 dark:text-dark-500 text-16">판단에 필요한 핵심 인사이트만 담은 하나로 끝내는 AI 분석 리포트로 지원사업의 성공 가능성을 미리 파악하세요.</p>
+                <a href="#!" class="link link-primary text-16">자세히 보기 <i data-lucide="move-right" class="inline-block ml-1 size-4"></i></a>
+            </div>
+            <div data-aos="fade-up" data-aos-duration="2000">
+                <div class="p-4 mb-4 bg-white rounded-lg text-primary-500 size-14 dark:bg-dark-900">
+                    <i data-lucide="gallery-vertical-end" class="fill-primary-500/20"></i>
+                </div>
+                <h5 class="mb-1">컨소시엄 매칭</h5>
+                <p class="mb-4 text-gray-500 dark:text-dark-500 text-16">데이터가 만드는 최적의 파트너를 지금 연결하세요. 쉽고 빠르게 이어지는 협업으로 성공적인 컨소시엄을 구성할 수 있습니다.</p>
+                <a href="#!" class="link link-primary text-16">자세히 보기 <i data-lucide="move-right" class="inline-block ml-1 size-4"></i></a>
+            </div>
+            <div data-aos="fade-up" data-aos-duration="2000">
+                <div class="p-4 mb-4 bg-white rounded-lg text-primary-500 size-14 dark:bg-dark-900">
+                    <i data-lucide="gem" class="fill-primary-500/20"></i>
+                </div>
+                <h5 class="mb-1">통합 협업툴</h5>
+                <p class="mb-4 text-gray-500 dark:text-dark-500 text-16">프로젝트 관리부터 화상회의까지, 모든 협업 도구를 하나의 플랫폼에서 관리하세요. 효율적인 팀워크로 성공적인 지원사업을 완성하세요.</p>
+                <a href="#!" class="link link-primary text-16">자세히 보기 <i data-lucide="move-right" class="inline-block ml-1 size-4"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="relative py-12 md:py-24" id="pricing">
+    <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto mb-12 text-center">
+            <h2 class="mb-3 leading-normal capitalize">우리 회사에 맞는 합리적 플랜</h2>
+            <p class="text-gray-500 dark:text-dark-500 text-16">기업 성장 단계에 맞춘 다양한 요금제와 부가서비스, 옵션이 준비되어 있어요!</p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div class="relative overflow-hidden card" data-aos="fade-up" data-aos-duration="2000">
+                <div class="absolute border-[40px] border-gray-100 dark:border-dark-850 size-64 -bottom-16 -right-16 rounded-creative"></div>
+                <div class="relative lg:p-8 card-body">
+                    <div class="mb-8 text-center">
+                        <h5 class="mb-1">Starter</h5>
+                        <p class="mb-6 text-gray-500 dark:text-dark-500">지원사업 정보 탐색 및 초기 분석에 특화</p>
+                        <h1>₩89,000<sub class="text-sm text-gray-500 dark:text-dark-500">/월</sub></h1>
+                    </div>
+                    <a href="#!" class="w-full btn btn-sub-gray">시작하기</a>
+                    <ul class="space-y-4 *:flex *:items-center *:gap-2 mt-7">
+                        <li><i data-lucide="corner-down-right" class="inline-block text-green-500 fill-green-500/10 size-4"></i> AI 맞춤 공고 추천 및 매칭</li>
+                        <li><i data-lucide="corner-down-right" class="inline-block text-green-500 fill-green-500/10 size-4"></i> 관심 사업 등록 및 관리</li>
+                        <li><i data-lucide="corner-down-right" class="inline-block text-green-500 fill-green-500/10 size-4"></i> 공고별 AI 분석 리포트 열람</li>
+                        <li><i data-lucide="corner-down-right" class="inline-block text-green-500 fill-green-500/10 size-4"></i> 지원사업 진행 상황 알림</li>
+                        <li><i data-lucide="x" class="inline-block text-gray-500 fill-gray-100 dark:text-dark-500 dark:fill-dark-850 size-4"></i> 컨소시엄 매칭</li>
+                        <li><i data-lucide="x" class="inline-block text-gray-500 fill-gray-100 dark:text-dark-500 dark:fill-dark-850 size-4"></i> 협업툴</li>
+                        <li><i data-lucide="x" class="inline-block text-gray-500 fill-gray-100 dark:text-dark-500 dark:fill-dark-850 size-4"></i> 24/7 전담 지원</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="relative overflow-hidden card active group" data-aos="fade-up" data-aos-duration="2000">
+                <div class="absolute border-[40px] border-gray-100 dark:border-dark-850 size-64 -bottom-16 -right-16 rounded-creative"></div>
+                <div class="relative lg:p-8 card-body">
+                    <div class="absolute right-5 top-5 badge badge-pink">인기 플랜</div>
+                    <div class="mb-8 text-center">
+                        <h5 class="mb-1">Growth</h5>
+                        <p class="mb-6 text-gray-500">컨소시엄 참여 희망 기업을 위한 기능 강화</p>
+                        <h1>₩159,000<sub class="text-sm text-gray-500">/월</sub></h1>
+                    </div>
+                    <a href="#!" class="w-full btn btn-primary">시작하기</a>
+                    <ul class="space-y-4 *:flex *:items-center *:gap-2 mt-7">
+                        <li><i data-lucide="corner-down-right" class="inline-block text-green-500 fill-green-500/10 size-4"></i> 컨소시엄 구성 매칭 (파트너 추천)</li>
+                        <li><i data-lucide="corner-down-right" class="inline-block text-green-500 fill-green-500/10 size-4"></i> 매칭룸 생성 및 관리</li>
+                        <li><i data-lucide="corner-down-right" class="inline-block text-green-500 fill-green-500/10 size-4"></i> 실시간 채팅 기능 포함</li>
+                        <li><i data-lucide="corner-down-right" class="inline-block text-green-500 fill-green-500/10 size-4"></i> 스타터 플랜의 모든 기능</li>
+                        <li><i data-lucide="x" class="inline-block text-gray-500 fill-gray-100 dark:text-dark-500 dark:fill-dark-850 size-4"></i> 협업툴 (컨소시엄 공동 작업 포함)</li>
+                        <li><i data-lucide="x" class="inline-block text-gray-500 fill-gray-100 dark:text-dark-500 dark:fill-dark-850 size-4"></i> 데이터 분석 대시보드</li>
+                        <li><i data-lucide="x" class="inline-block text-gray-500 fill-gray-100 dark:text-dark-500 dark:fill-dark-850 size-4"></i> 24/7 전담 지원</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="relative overflow-hidden card" data-aos="fade-up" data-aos-duration="2000">
+                <div class="absolute border-[40px] border-gray-100 dark:border-dark-850 size-64 -bottom-16 -right-16 rounded-creative"></div>
+                <div class="relative lg:p-8 card-body">
+                    <div class="mb-8 text-center">
+                        <h5 class="mb-1">Pro</h5>
+                        <p class="mb-6 text-gray-500 dark:text-dark-500">심화 분석 및 과제 관리 기업용</p>
+                        <h1>₩290,000<sub class="text-sm text-gray-500 dark:text-dark-500">/월</sub></h1>
+                    </div>
+                    <a href="#!" class="w-full btn btn-sub-gray">상담 문의</a>
+                    <ul class="space-y-4 *:flex *:items-center *:gap-2 mt-7">
+                        <li><i data-lucide="corner-down-right" class="inline-block text-green-500 fill-green-500/10 size-4"></i> 협업툴 (컨소시엄 공동 작업 포함)</li>
+                        <li><i data-lucide="corner-down-right" class="inline-block text-green-500 fill-green-500/10 size-4"></i> 데이터 분석 대시보드</li>
+                        <li><i data-lucide="corner-down-right" class="inline-block text-green-500 fill-green-500/10 size-4"></i> 관리자 모드 제공 및 팀원 규모 최대 확장</li>
+                        <li><i data-lucide="corner-down-right" class="inline-block text-green-500 fill-green-500/10 size-4"></i> 그로스 플랜의 모든 기능</li>
+                        <li><i data-lucide="corner-down-right" class="inline-block text-green-500 fill-green-500/10 size-4"></i> 프로젝트 관리</li>
+                        <li><i data-lucide="corner-down-right" class="inline-block text-green-500 fill-green-500/10 size-4"></i> 화상회의</li>
+                        <li><i data-lucide="corner-down-right" class="inline-block text-green-500 fill-green-500/10 size-4"></i> 24/7 전담 지원</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="relative md:pb-28" id="features">
+    <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto mb-12 text-center">
+            <h2 class="mb-3 leading-normal capitalize">파트너잇 핵심 기능</h2>
+            <p class="text-gray-500 dark:text-dark-500 text-16">AI 기반 매칭 시스템과 실시간 협업 도구로 최적의 파트너십을 구축하세요.</p>
+        </div>
+        <div class="grid grid-cols-12 gap-x-space">
+            <div class="col-span-12 row-span-2 text-center bg-gray-100 dark:bg-dark-900/40 md:col-span-3 card">
+                <div class="card-body">
+                    <img src="assets/images/email/features-1.png" alt="" class="w-full rounded-md dark:hidden">
+                    <img src="assets/images/email/features-1-dark.png" alt="" class="w-full rounded-md hidden dark:block">
+                    <h6 class="mt-4">간편한 계정 관리</h6>
+                </div>
+            </div>
+            <div class="col-span-12 row-span-2 text-center bg-gray-100 dark:bg-dark-900/40 md:col-span-5 card">
+                <div class="card-body">
+                    <img src="assets/images/email/features-2.png" alt="" class="w-full rounded-md dark:hidden">
+                    <img src="assets/images/email/features-2-dark.png" alt="" class="w-full hidden dark:block rounded-md">
+                    <h6 class="mt-4">Filter wise Email Lists</h6>
+                </div>
+            </div>
+            <div class="col-span-12 text-center bg-gray-100 dark:bg-dark-900/40 md:col-span-4 card">
+                <div class="space-y-8 card-body">
+                    <div>
+                        <img src="assets/images/email/features-3.png" alt="" class="w-full rounded-md dark:hidden">
+                        <img src="assets/images/email/features-3-dark.png" alt="" class="w-full rounded-md hidden dark:block">
+                        <h6 class="mt-4">Reply & New Added</h6>
+                    </div>
+
+                    <div>
+                        <img src="assets/images/email/features-4.png" alt="" class="w-full rounded-md dark:hidden">
+                        <img src="assets/images/email/features-4-dark.png" alt="" class="w-full rounded-md hidden dark:block">
+                        <h6 class="mt-4">Email Reads</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="relative lg:py-24 bg-primary-900" id="cases">
+    <div class="container mx-auto px-4">
+        <div class="lg:flex gap-x-16">
+            <div class="w-full py-12 text-white lg:w-3/5 lg:py-0">
+                <h2 class="mb-2 leading-normal capitalize xl:text-5xl">파트너잇과 함께 성장하고 있는 <span class="text-primary-500">고객사</span>의 이야기</h2>
+                <p class="mb-5 text-lg text-white">고객사의 생생한 이야기를 소개합니다. AI 기반 매칭으로 성공한 실제 사례들을 확인해보세요.</p>
+                <div class="flex flex-wrap items-center gap-3">
+                    <a href="#!" class="btn btn-primary">더 알아보기 <i data-lucide="move-right" class="inline-block ml-1 size-4"></i></a>
+                    <button type="button" class="btn">고객사례 보기 <i data-lucide="move-right" class="inline-block ml-1 size-4"></i></button>
+                </div>
+            </div>
+            <div class="lg:w-2/5">
+                <img src="assets/images/email/cta.png" alt="" class="w-[300px] mx-auto xl:scale-150 xl:-mt-16 relative object-cover rounded-lg ">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="relative py-12 md:py-24" id="faq">
+    <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto mb-12 text-center">
+            <h2 class="mb-3 leading-normal capitalize">자주 묻는 질문</h2>
+            <p class="text-gray-500 dark:text-dark-500 text-16">파트너잇 서비스 이용 관련 궁금한 점을 확인할 수 있어요! <a href="#!" class="font-medium text-gray-800 dark:text-dark-100 underline">전체 FAQ 보기</a></p>
+        </div>
+        <div class="grid grid-cols-12">
+            <div class="col-span-12 lg:col-span-8 lg:col-start-3">
+                <div x-data="{selected:1}">
+                    <div class="relative border-b border-gray-200 dark:border-dark-800 last:border-0">
+                        <button type="button" class="block w-full px-4 py-4 font-medium transition duration-200 ease-linear md:px-5" @click="selected !== 1 ? selected = 1 : selected = null" x-bind:class="{ 'bg-gray-50 text-primary-500 dark:bg-dark-900/30': selected === 1 }">
+                            <div class="flex items-center justify-between">
+                                <span>비밀번호를 분실했어요</span>
+                                <span class="text-gray-500 dark:text-dark-500 ico-down" x-bind:class="{ 'text-gray-500 dark:text-dark-500': selected === 1 }" x-show="selected !== 1"><i data-lucide="chevron-down" class="size-5"></i></span>
+                                <span class="text-gray-500 dark:text-dark-500 ico-up" x-bind:class="{ 'text-gray-500 dark:text-dark-500': selected === 1 }" x-show="selected === 1"><i data-lucide="chevron-up" class="size-5"></i></span>
+                            </div>
+                        </button>
+                        <div class="relative overflow-hidden transition-all duration-700 max-h-0" x-ref="container1" x-bind:style="selected == 1 ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''">
+                            <div class="p-5 text-gray-500 dark:text-dark-500">
+                                <ul class="space-y-2 list-disc list-inside">
+                                    <li>로그인 페이지 내의 <strong>비밀번호 찾기</strong> 버튼을 클릭하세요.</li>
+                                    <li>가입 시 지정한 <strong>개인 이메일</strong>로 <strong>임시 패스워드</strong>가 전송됩니다.</li>
+                                    <li>발급된 임시 패스워드로 로그인한 후에는 <strong>비밀번호를 꼭 변경하세요.</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative border-b border-gray-200 dark:border-dark-800 last:border-0">
+                        <button type="button" class="block w-full px-4 py-4 font-medium transition duration-200 ease-linear md:px-5" @click="selected !== 2 ? selected = 2 : selected = null" x-bind:class="{ 'bg-gray-50 text-primary-500 dark:bg-dark-900/30': selected === 2 }">
+                            <div class="flex items-center justify-between">
+                                <span>외부 사용자 파트너잇에 초대하기</span>
+                                <span class="text-gray-500 dark:text-dark-500 ico-down" x-bind:class="{ 'text-gray-500 dark:text-dark-500': selected === 2 }" x-show="selected !== 2"><i data-lucide="chevron-down" class="size-5"></i></span>
+                                <span class="text-gray-500 dark:text-dark-500 ico-up" x-bind:class="{ 'text-gray-500 dark:text-dark-500': selected === 2 }" x-show="selected === 2"><i data-lucide="chevron-up" class="size-5"></i></span>
+                            </div>
+                        </button>
+                        <div class="relative overflow-hidden transition-all duration-700 max-h-0" x-ref="container2" x-bind:style="selected == 2 ? 'max-height: ' + $refs.container2.scrollHeight + 'px' : ''">
+                            <div class="p-5">
+                                <p>워크스페이스 &gt; 구성원 초대에서 이메일을 입력해 초대 링크를 전송하세요. 초대 수락 후 권한을 지정할 수 있어요.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative border-b border-gray-200 dark:border-dark-800 last:border-0">
+                        <button type="button" class="block w-full px-4 py-4 font-medium transition duration-200 ease-linear md:px-5" @click="selected !== 3 ? selected = 3 : selected = null" x-bind:class="{ 'bg-gray-50 text-primary-500 dark:bg-dark-900/30': selected === 3 }">
+                            <div class="flex items-center justify-between">
+                                <span>서비스 해지 및 데이터 백업 방법</span>
+                                <span class="text-gray-500 dark:text-dark-500 ico-down" x-bind:class="{ 'text-gray-500 dark:text-dark-500': selected === 3 }" x-show="selected !== 3"><i data-lucide="chevron-down" class="size-5"></i></span>
+                                <span class="text-gray-500 dark:text-dark-500 ico-up" x-bind:class="{ 'text-gray-500 dark:text-dark-500': selected === 3 }" x-show="selected === 3"><i data-lucide="chevron-up" class="size-5"></i></span>
+                            </div>
+                        </button>
+                        <div class="relative overflow-hidden transition-all duration-700 max-h-0" x-ref="container3" x-bind:style="selected == 3 ? 'max-height: ' + $refs.container3.scrollHeight + 'px' : ''">
+                            <div class="p-5">
+                                <p class="text-gray-500 dark:text-dark-500">설정 &gt; 구독 관리에서 해지할 수 있으며, 해지 전 데이터 내보내기 기능으로 JSON/CSV 백업을 지원합니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative border-b border-gray-200 dark:border-dark-800 last:border-0">
+                        <button type="button" class="block w-full px-4 py-4 font-medium transition duration-200 ease-linear md:px-5" @click="selected !== 4 ? selected = 4 : selected = null" x-bind:class="{ 'bg-gray-50 text-primary-500 dark:bg-dark-900/30': selected === 4 }">
+                            <div class="flex items-center justify-between">
+                                <span>부가 서비스 및 가격 안내</span>
+                                <span class="text-gray-500 dark:text-dark-500 ico-down" x-bind:class="{ 'text-gray-500 dark:text-dark-500': selected === 4 }" x-show="selected !== 4"><i data-lucide="chevron-down" class="size-5"></i></span>
+                                <span class="text-gray-500 dark:text-dark-500 ico-up" x-bind:class="{ 'text-gray-500 dark:text-dark-500': selected === 4 }" x-show="selected === 4"><i data-lucide="chevron-up" class="size-5"></i></span>
+                            </div>
+                        </button>
+                        <div class="relative overflow-hidden transition-all duration-700 max-h-0" x-ref="container4" x-bind:style="selected == 4 ? 'max-height: ' + $refs.container4.scrollHeight + 'px' : ''">
+                            <div class="p-5">
+                                <p class="text-gray-500 dark:text-dark-500">AI 리포트 크레딧, 팀 좌석 추가, 전담 CSM 등 부가 서비스를 옵션으로 이용할 수 있어요.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative border-b border-gray-200 dark:border-dark-800 last:border-0">
+                        <button type="button" class="block w-full px-4 py-4 font-medium transition duration-200 ease-linear md:px-5" @click="selected !== 5 ? selected = 5 : selected = null" x-bind:class="{ 'bg-gray-50 text-primary-500 dark:bg-dark-900/30': selected === 5 }">
+                            <div class="flex items-center justify-between">
+                                <span>기업 프로필 수정 안내</span>
+                                <span class="text-gray-500 dark:text-dark-500 ico-down" x-bind:class="{ 'text-gray-500 dark:text-dark-500': selected === 5 }" x-show="selected !== 5"><i data-lucide="chevron-down" class="size-5"></i></span>
+                                <span class="text-gray-500 dark:text-dark-500 ico-up" x-bind:class="{ 'text-gray-500 dark:text-dark-500': selected === 5 }" x-show="selected === 5"><i data-lucide="chevron-up" class="size-5"></i></span>
+                            </div>
+                        </button>
+                        <div class="relative overflow-hidden transition-all duration-700 max-h-0" x-ref="container5" x-bind:style="selected == 5 ? 'max-height: ' + $refs.container5.scrollHeight + 'px' : ''">
+                            <div class="p-5">
+                                <p class="text-gray-500 dark:text-dark-500">기업 정보 &gt; 프로필에서 기본 정보, 인증, 수행사업 이력 등을 수정하고 저장하세요.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<footer class="relative bg-gray-900 dark:bg-dark-900">
+    <div class="py-12 lg:py-20">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-12 gap-6">
+                <div class="col-span-12 xl:col-span-6">
+                    <div class="max-w-lg">
+                        <a href="index.html" title="logo"><img src="assets/images/logo-white.png" alt="" class="h-7"></a>
+                        <p class="mt-4 mb-6 text-gray-500 dark:text-dark-500 text-16">파트너잇은 기업과 파트너 간의 상생 협력을 통해 새로운 비즈니스 기회를 창출합니다. AI 기반 매칭 시스템으로 최적의 파트너십을 구축하세요.</p>
+                        <div class="flex items-center gap-5">
+                            <a href="#!" title="facebook" class="relative flex items-center justify-center transition duration-300 ease-linear hover:-translate-y-1 after:absolute after:inset-0 after:rounded-lg after:-rotate-45 after:bg-gray-800/50 dark:after:bg-dark-800/50 size-10 text-primary-500"><i data-lucide="facebook" class="relative z-10 size-5"></i></a>
+                            <a href="#!" title="dribbble" class="relative flex items-center justify-center text-pink-500 transition duration-300 ease-linear hover:-translate-y-1 after:absolute after:inset-0 after:rounded-lg after:-rotate-45 after:bg-gray-800/50 dark:after:bg-dark-800/50 size-10"><i data-lucide="dribbble" class="relative z-10 size-5"></i></a>
+                            <a href="#!" title="twitter" class="relative flex items-center justify-center transition duration-300 ease-linear hover:-translate-y-1 text-sky-500 after:absolute after:inset-0 after:rounded-lg after:-rotate-45 after:bg-gray-800/50 dark:after:bg-dark-800/50 size-10"><i data-lucide="twitter" class="relative z-10 size-5"></i></a>
+                            <a href="#!" title="youtube" class="relative flex items-center justify-center text-red-500 transition duration-300 ease-linear hover:-translate-y-1 after:absolute after:inset-0 after:rounded-lg after:-rotate-45 after:bg-gray-800/50 dark:after:bg-dark-800/50 size-10"><i data-lucide="youtube" class="relative z-10 size-5"></i></a>
+                        </div>
+                    </div>
+                </div><!--end col-->
+                <div class="col-span-12 md:col-span-4 xl:col-span-2">
+                    <h6 class="mb-4 text-gray-200 dark:text-dark-200 text-17">주요기능</h6>
+                    <ul class="space-y-5 text-16">
+                        <li><a href="#!" class="link link-primary">맞춤형 공고 매칭</a></li>
+                        <li><a href="#!" class="link link-primary">AI 분석 리포트</a></li>
+                        <li><a href="#!" class="link link-primary">컨소시엄 매칭</a></li>
+                        <li><a href="#!" class="link link-primary">통합 협업툴</a></li>
+                        <li><a href="#!" class="link link-primary">대시보드</a></li>
+                    </ul>
+                </div>
+                <div class="col-span-12 md:col-span-4 xl:col-span-2">
+                    <h6 class="mb-4 text-gray-200 text-17">파트너잇 소개</h6>
+                    <ul class="space-y-5 text-16">
+                        <li><a href="#!" class="link link-primary">회사 소개</a></li>
+                        <li><a href="#!" class="link link-primary">공지사항</a></li>
+                        <li><a href="#!" class="link link-primary">뉴스 & 미디어</a></li>
+                        <li><a href="#!" class="link link-primary">서비스 소개 자료</a></li>
+                        <li><a href="#!" class="link link-primary">요금안내</a></li>
+                        <li><a href="#!" class="link link-primary">고객 사례</a></li>
+                    </ul>
+                </div>
+                <div class="col-span-12 md:col-span-4 xl:col-span-2">
+                    <h6 class="mb-4 text-gray-200 text-17">고객지원</h6>
+                    <ul class="space-y-5 text-16">
+                        <li><a href="#!" class="link link-primary">도움말 센터</a></li>
+                        <li><a href="#!" class="link link-primary">사용자 가이드</a></li>
+                        <li><a href="#!" class="link link-primary">FAQ's</a></li>
+                        <li><a href="#!" class="link link-primary">개인 정보 정책</a></li>
+                        <li><a href="#!" class="link link-primary">서비스 이용약관</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mx-auto px-4">
+        <div class="py-6 text-gray-500 dark:text-dark-500 text-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <p x-data="{ year: new Date().getFullYear() }">
+                        &copy; <span x-text="year"></span> Copyright 2025. Partnerit Company Inc. all right reserved.
+                    </p>
+                    <div class="mt-4 space-y-1 text-sm">
+                        <p>(주) 파트너잇 대표자 : 김남훈</p>
+                        <p>사업자등록번호 : 105-87-55645</p>
+                        <p>통신판매업신고번호 : 2020-부산센텀-3513</p>
+                        <p>주소 : 부산 해운대구 센텀중앙로 90, 큐비e센텀 917호</p>
+                        <p>고객센터 : 1668-3708 | 운영시간 : 09:00 ~ 17:00</p>
+                        <p>E-MAIL : partnerit@gmail.com</p>
+                    </div>
+                </div>
+                <div class="text-sm">
+                    <p>개인정보 처리방침 | 서비스 이용약관</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<button class="fixed flex items-center justify-center text-white ltr:right-0 rtl:left-0 bg-primary-500 ltr:rounded-l-md rtl:rounded-r-md size-12 top-1/2" x-on:click="let mode = document.querySelector('[data-mode]').getAttribute('data-mode');
+let newMode = mode === 'light' ? 'dark' : 'light';
+document.querySelector('[data-mode]').setAttribute('data-mode', newMode);">
+    <i data-lucide="moon" class="inline-block size-5 dark:hidden"></i>
+    <i data-lucide="sun" class="hidden size-5 dark:inline-block"></i>
+</button>
+
+{{> partials/vendor-scripts }}
+
+<script type="module" src="assets/js/landing/email.init.js"></script>
+
+<script>
+    document.addEventListener("alpine:init", () => {
+        Alpine.data("tabsHandler", () => ({
+            activeTab: 1,
+            sections: ["services", "pricing", "features", "cases", "faq"],
+
+            setActive(tab) {
+                this.activeTab = tab;
+                document.getElementById(this.sections[tab - 1]).scrollIntoView({ behavior: "smooth" });
+            },
+
+            updateTabOnScroll() {
+                let scrollPosition = window.scrollY;
+                this.sections.forEach((id, index) => {
+                    let section = document.getElementById(id);
+                    if (section) {
+                        let offset = section.offsetTop - 120; // Adjust based on header size
+                        let height = section.offsetHeight;
+                        if (scrollPosition >= offset && scrollPosition < offset + height) {
+                            this.activeTab = index + 1;
+                        }
+                    }
+                });
+            }
+        }));
+    });
+</script>
+
+<script type="module" src="assets/js/main.js"></script>
+
+</body>
+
+</html>

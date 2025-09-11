@@ -1,0 +1,25 @@
+/*
+Template Name: Domiex - Admin & Dashboard Template
+Author: SRBThemes
+Version: 1.0.0
+File: tailwind scss files
+*/
+
+@import "tailwindcss";
+@import "./fonts/fonts.css";
+
+@import "./components/theme.css";
+
+
+@import "./components/drawer.css";
+@import "./components/helper.css";
+@import "./components/buttons.css";
+@import "./components/form.css";
+@import "./components/animation.css";
+@import "./layouts/horizontal.css";
+@import "./layouts/topbar.css";
+
+/* plugins css */
+@import "plugins.css";
+
+@custom-variant dark (&:where([data-mode=dark], [data-mode=dark] *));
