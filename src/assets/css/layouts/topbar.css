@@ -36,3 +36,12 @@
         @apply absolute inset-0 top-0 bg-primary-500 h-52 inline-block;
     }
 }
+
+.landing-navbar{
+    backdrop-filter: saturate(180%) blur(8px);
+    -webkit-backdrop-filter: saturate(180%) blur(8px); /* Safari */
+    transition: box-shadow .2s ease, background .2s ease;
+  }
+  .landing-navbar.scroll-sticky{
+    box-shadow: 0 8px 24px rgba(0,0,0,.08);
+  }

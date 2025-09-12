@@ -1,8 +1,8 @@
 @theme {
     /* //font-family */
-    --font-sans:                    "Inter", sans-serif;
-    --font-body:                    "Inter", sans-serif;
-    --font-heading:                 "Inter", sans-serif;
+    --font-sans:                    "Pretendard", sans-serif;
+    --font-body:                    "Pretendard", sans-serif;
+    --font-heading:                 "Pretendard", sans-serif;
     --font-remix:                   remixicon;
     --font-roboto-slab:             "Roboto Slab", sans-serif;
     /* //spacing */
@@ -26,7 +26,10 @@
     --text-16:                      1rem;
     --text-17:                      1.0625rem;
     --text-card-title:              0.9375rem;
+    /* spacing */
+    --spacing-15: 3.75rem; 
     /* //colors */
+    --color-bg:                     oklch(98.16% 0.0017 247.84);
     --color-body-invoice:           oklch(12.29% 0.0611 278.48);
     --color-muted-invoice:          oklch(58.87% 0.0549 293.56);
     --color-body:                   var(--color-white);

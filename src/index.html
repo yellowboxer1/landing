@@ -18,232 +18,992 @@
 
 {{> partials/body }}
 
-<div x-data="{ isSticky: false , isMenuOpen: false , activeTab: 0 }" x-init="window.addEventListener('scroll', () => { isSticky = window.scrollY > 0 })">
-    <header class="landing-navbar h-20 top-0 [&.scroll-sticky]:top-0 [&.scroll-sticky]:shadow-gray-200/50 [&.scroll-sticky]:shadow-lg [&.scroll-sticky]:bg-white dark:[&.scroll-sticky]:shadow-dark-850 dark:[&.scroll-sticky]:bg-dark-900" :class="{ 'scroll-sticky': isSticky }">
-        <div class="container mx-auto px-4 flex items-center justify-between w-full gap-5">
-            <a href="index.html" title="logo">
-                <img src="assets/images/main-logo.svg" alt="" class="inline-block h-7 dark:hidden">
-                <img src="assets/images/logo-white.svg" alt="" class="hidden h-7 dark:inline-block">
+<div x-data="{ isSticky:false, isMenuOpen:false, activeTab:0 }"
+     x-init="window.addEventListener('scroll', () => { isSticky = window.scrollY > 0 })">
+
+  <!-- HEADER -->
+  <header
+    class="landing-navbar fixed inset-x-0 top-0 z-50 h-15
+            bg-white dark:bg-dark-950 
+            xl:[&.scroll-sticky]:shadow-lg"
+    :class="{ 'scroll-sticky': isSticky }"
+    >
+        <div class="container mx-auto px-5 sm:px-6 xl:px-0 py-[9px] flex items-center justify-between w-full gap-5">
+      <!-- 로고 -->
+      <a href="index.html" class="shrink-0" title="logo">
+        <img src="assets/images/main-logo.svg" alt="Partnerit" class="inline-block h-8 dark:hidden">
+        <img src="assets/images/logo-white.svg" alt="Partnerit" class="hidden h-8 dark:inline-block">
+      </a>
+
+      <!-- 데스크탑 내비 -->
+      <nav class="hidden xl:flex items-center">
+        <div x-data="tabsHandler()" @scroll.window="updateTabOnScroll"
+             class="flex items-center gap-x-2 *:py-[9px] xl:*:px-3 *:inline-block *:text-16 *:tracking-wide *:font-medium">
+          <a href="#services" @click="setActive(1)" :class="{ 'active': activeTab === 1 }"
+             class="leading-normal [&.active]:text-primary-500 hover:text-primary-500 transition">파트너잇 소개</a>
+          <a href="#features" @click="setActive(3)" :class="{ 'active': activeTab === 3 }"
+             class="leading-normal [&.active]:text-primary-500 hover:text-primary-500 transition">주요기능</a>
+          <a href="#pricing"  @click="setActive(2)" :class="{ 'active': activeTab === 2 }"
+             class="leading-normal [&.active]:text-primary-500 hover:text-primary-500 transition">요금정책</a>
+          <a href="#cases"    @click="setActive(4)" :class="{ 'active': activeTab === 4 }"
+             class="leading-normal [&.active]:text-primary-500 hover:text-primary-500 transition">고객사례</a>
+          <a href="#faq"      @click="setActive(5)" :class="{ 'active': activeTab === 5 }"
+             class="leading-normal [&.active]:text-primary-500 hover:text-primary-500 transition">FAQ's</a>
+        </div>
+      </nav>
+
+      <!-- 데스크탑 액션 -->
+      <div class="hidden xl:flex items-center gap-8">
+        <a href="/login" class="text-[16px] hover:text-primary-500">로그인</a>
+        <a href="/trial" class="inline-flex items-center rounded-1.8xl px-4 py-1.5 text-[15px] font-semibold
+                               bg-primary-500 text-white hover:bg-primary-600 btn btn-outline-gray">무료체험</a>
+      </div>
+
+      <!-- 모바일 햄버거 -->
+      <button type="button"
+              class="xl:hidden inline-flex items-center justify-center rounded-md p-2 border border-gray-200"
+              @click="isMenuOpen = !isMenuOpen" :aria-expanded="isMenuOpen.toString()" aria-label="메뉴 열기">
+        <svg x-show="!isMenuOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+             viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+             d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg x-show="isMenuOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+             viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+             d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <!-- 모바일 드롭다운 -->
+    <div class="xl:hidden"
+        x-show="isMenuOpen"
+        x-transition.origin.top.left
+        @click.outside="isMenuOpen = false">
+    <div class="border-t mx-auto px-5 sm:px-6 xl:px-0 border-gray-100 bg-white dark:bg-dark-900 shadow-md">
+        <div class="container mx-auto px-3 py-2 flex flex-col gap-1 [&>a]:py-1.5">
+        <a href="#services" @click="setActive(1); isMenuOpen=false" :class="{ 'active': activeTab === 1 }"
+            class="leading-normal [&.active]:text-primary-500 hover:text-primary-500 transition">파트너잇 소개</a>
+        <a href="#features" @click="setActive(3); isMenuOpen=false" :class="{ 'active': activeTab === 3 }"
+            class="leading-normal [&.active]:text-primary-500 hover:text-primary-500 transition">주요기능</a>
+        <a href="#pricing"  @click="setActive(2); isMenuOpen=false" :class="{ 'active': activeTab === 2 }"
+            class="leading-normal [&.active]:text-primary-500 hover:text-primary-500 transition">요금정책</a>
+        <a href="#cases"    @click="setActive(4); isMenuOpen=false" :class="{ 'active': activeTab === 4 }"
+            class="leading-normal [&.active]:text-primary-500 hover:text-primary-500 transition">고객사례</a>
+        <a href="#faq"      @click="setActive(5); isMenuOpen=false" :class="{ 'active': activeTab === 5 }"
+            class="leading-normal [&.active]:text-primary-500 hover:text-primary-500 transition">FAQ's</a>
+
+        <div class="mt-2 flex items-center gap-5 pt-2 border-t border-gray-100">
+            <a href="/login" class="py-1">로그인</a>
+            <a href="/trial"
+            class="inline-flex items-center rounded-1.8xl px-3 py-1.5 text-[15px] font-semibold
+                    bg-primary-500 text-white hover:bg-primary-600 btn btn-outline-gray">
+            무료체험
             </a>
-            <div class="navbar-collapase ltr:mr-auto rtl:ml-auto" :class="{ 'hidden xl:flex': !isMenuOpen }">
-                <div x-data="tabsHandler()" @scroll.window="updateTabOnScroll" class="flex flex-col xl:flex-row xl:items-center *:py-3 xl:py-0 xl:*:px-3 *:inline-block *:text-16 *:tracking-wide *:font-medium">
-
-                    <a href="#services" @click="setActive(1)" :class="{ 'active': activeTab === 1 }" class="leading-normal [&.active]:text-primary-500 hover:text-primary-500 transition duration-300 ease-linear">
-                        파트너잇 소개
-                    </a>
-                    <a href="#features" @click="setActive(3)" :class="{ 'active': activeTab === 3 }" class="leading-normal [&.active]:text-primary-500 hover:text-primary-500 transition duration-300 ease-linear">
-                        주요기능
-                    </a>
-                    <a href="#pricing" @click="setActive(2)" :class="{ 'active': activeTab === 2 }" class="leading-normal [&.active]:text-primary-500 hover:text-primary-500 transition duration-300 ease-linear">
-                        요금정책
-                    </a>
-                    <a href="#cases" @click="setActive(4)" :class="{ 'active': activeTab === 4 }" class="leading-normal [&.active]:text-primary-500 hover:text-primary-500 transition duration-300 ease-linear">
-                        고객사례
-                    </a>
-                    <a href="#faq" @click="setActive(5)" :class="{ 'active': activeTab === 5 }" class="leading-normal [&.active]:text-primary-500 hover:text-primary-500 transition duration-300 ease-linear">
-                        FAQ's
-                    </a>
-                </div>
-            </div>
-            <button @click="isMenuOpen = !isMenuOpen" type="button" class="rounded-full xl:ltr:ml-0 xl:rtl:mr-0 ltr:ml-auto rtl:mr-auto navbar-toggle btn btn-sub-sky btn-icon xl:!hidden">
-                <i :class="isMenuOpen ? 'ri-close-line' : 'ri-menu-2-line'" class="text-lg"></i>
-            </button>
-            <div>
-                <a href="auth-signin-basic.html" class="btn btn-active-gray">Sign In</a>
-                <button type="button" class="hidden btn btn-sub-primary md:inline-block">Get for free</button>
-            </div>
         </div>
-    </header>
+        </div>
+    </div>
+    </div>
+  </header>
+
+  <main class="pt-15">
+
+  </main>
 </div>
-<section class="relative pb-20 overflow-hidden pt-28 lg:pt-40 xl:pb-48 2xl:pt-80">
-    <div class="container mx-auto px-4">
-        <div class="grid grid-cols-12 lg:gap-x-16">
+
+
+<section id="services"
+  class="relative overflow-hidden
+         pt-15                       
+         min-h-[calc(100svh-3.75rem)]
+         flex items-start
+         xl:items-center xl:pt-0">
+    <div class="container mx-auto px-5 sm:px-6 xl:px-0">
+        <div class="grid grid-cols-12 lg:gap-x-16 items-center">
             <div class="col-span-12 xl:col-span-5" data-aos="fade-up" data-aos-duration="2000">
-                <h2 class="mb-2 leading-normal capitalize xl:leading-normal xl:text-5xl">이제 AI가 내 기업에 맞는 <span class="text-primary-500">기회</span>만 보여줍니다.</h2>
-                <p class="mb-5 text-lg text-gray-500 dark:text-dark-500">공고 찾느라 허비한 시간, 단 5분만에 해결하세요! 기업의 소중한 시간을 지켜 드립니다.</p>
+                <h2 class="text-3xl md:text-5xl font-bold leading-snug">
+                    수 많은 지원사업,<br/></span>
+                    아직도 직접 찾으시나요?
+                  </h2>                
+                  <p class="mt-5 mb-8 text-sm md:text-lg text-gray-500 dark:text-dark-500 leading-relaxed">
+                    이제 AI가 내 기업에 맞는 기회만 보여줍니다.<br/></span>
+                    공고 찾느라 허비한 시간, 단 5분만에 해결하세요!<br/></span>
+                    기업의 소중한 시간을 지켜 드립니다.
+                  </p>
                 <div class="flex flex-wrap items-center gap-3">
-                    <a href="#pricing" class="btn btn-primary">무료 체험하기 <i data-lucide="move-right" class="inline-block ml-1 size-4"></i></a>
-                    <button type="button" class="border-gray-200 dark:border-dark-800 btn btn-outline-gray">더 알아보기</button>
+                    <button type="button"
+                            class="border-gray-200 dark:border-dark-800 btn btn-outline-gray"
+                            @click="document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })">
+                    더 알아보기
+                    <i data-lucide="move-right" class="inline-block ml-1 size-4"></i>
+                    </button>
                 </div>
             </div>
-            <div class="col-span-12 mt-8 xl:col-span-6 xl:col-start-7 md:mt-10 xl:mt-0">
-                <div>
-                    <img src="assets/images/email/main.png" alt="" class="relative dark:hidden xl:scale-[1.8] object-cover border border-gray-200 dark:border-dark-800 rounded-lg ltr:xl:-right-44 rtl:xl:-left-44 xl:top-16 2xl:top-auto">
-                    <img src="assets/images/email/email-dark.png" alt="" class="relative hidden dark:block xl:scale-[1.8] object-cover border border-gray-200 dark:border-dark-800 rounded-lg ltr:xl:-right-44 rtl:xl:-left-44 xl:top-16 2xl:top-auto">
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="relative py-12 md:py-24 bg-gray-50 dark:bg-dark-900/50" id="services">
-    <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space">
-            <div data-aos="fade-up" data-aos-duration="2000">
-                <div class="p-4 mb-4 bg-white rounded-lg text-primary-500 size-14 dark:bg-dark-900">
-                    <i data-lucide="fan" class="fill-primary-500/20"></i>
-                </div>
-                <h5 class="mb-1">AI 분석 리포트</h5>
-                <p class="mb-4 text-gray-500 dark:text-dark-500 text-16">판단에 필요한 핵심 인사이트만 담은 하나로 끝내는 AI 분석 리포트로 지원사업의 성공 가능성을 미리 파악하세요.</p>
-                <a href="#!" class="link link-primary text-16">자세히 보기 <i data-lucide="move-right" class="inline-block ml-1 size-4"></i></a>
-            </div>
-            <div data-aos="fade-up" data-aos-duration="2000">
-                <div class="p-4 mb-4 bg-white rounded-lg text-primary-500 size-14 dark:bg-dark-900">
-                    <i data-lucide="gallery-vertical-end" class="fill-primary-500/20"></i>
-                </div>
-                <h5 class="mb-1">컨소시엄 매칭</h5>
-                <p class="mb-4 text-gray-500 dark:text-dark-500 text-16">데이터가 만드는 최적의 파트너를 지금 연결하세요. 쉽고 빠르게 이어지는 협업으로 성공적인 컨소시엄을 구성할 수 있습니다.</p>
-                <a href="#!" class="link link-primary text-16">자세히 보기 <i data-lucide="move-right" class="inline-block ml-1 size-4"></i></a>
-            </div>
-            <div data-aos="fade-up" data-aos-duration="2000">
-                <div class="p-4 mb-4 bg-white rounded-lg text-primary-500 size-14 dark:bg-dark-900">
-                    <i data-lucide="gem" class="fill-primary-500/20"></i>
-                </div>
-                <h5 class="mb-1">통합 협업툴</h5>
-                <p class="mb-4 text-gray-500 dark:text-dark-500 text-16">프로젝트 관리부터 화상회의까지, 모든 협업 도구를 하나의 플랫폼에서 관리하세요. 효율적인 팀워크로 성공적인 지원사업을 완성하세요.</p>
-                <a href="#!" class="link link-primary text-16">자세히 보기 <i data-lucide="move-right" class="inline-block ml-1 size-4"></i></a>
+            <div class="col-span-12 mt-20 xl:col-span-6 xl:col-start-7 md:mt-10 xl:mt-0">
+                <div class="h-full flex items-center justify-end xl:pr-4">
+                    <img src="assets/images/matching@3x.png" class="dark:hidden xl:scale-[1.4] object-cover rounded-lg" alt="" />
+                    <img src="assets/images/matching@3x.png" class="hidden dark:block xl:scale-[1.4] object-cover rounded-lg" alt="" />
+                  </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="relative py-12 md:py-24" id="pricing">
-    <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto mb-12 text-center">
-            <h2 class="mb-3 leading-normal capitalize">우리 회사에 맞는 합리적 플랜</h2>
-            <p class="text-gray-500 dark:text-dark-500 text-16">기업 성장 단계에 맞춘 다양한 요금제와 부가서비스, 옵션이 준비되어 있어요!</p>
-        </div>
 
-        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <div class="relative overflow-hidden card" data-aos="fade-up" data-aos-duration="2000">
-                <div class="absolute border-[40px] border-gray-100 dark:border-dark-850 size-64 -bottom-16 -right-16 rounded-creative"></div>
-                <div class="relative lg:p-8 card-body">
-                    <div class="mb-8 text-center">
-                        <h5 class="mb-1">Starter</h5>
-                        <p class="mb-6 text-gray-500 dark:text-dark-500">지원사업 정보 탐색 및 초기 분석에 특화</p>
-                        <h1>₩89,000<sub class="text-sm text-gray-500 dark:text-dark-500">/월</sub></h1>
-                    </div>
-                    <a href="#!" class="w-full btn btn-sub-gray">시작하기</a>
-                    <ul class="space-y-4 *:flex *:items-center *:gap-2 mt-7">
-                        <li><i data-lucide="corner-down-right" class="inline-block text-green-500 fill-green-500/10 size-4"></i> AI 맞춤 공고 추천 및 매칭</li>
-                        <li><i data-lucide="corner-down-right" class="inline-block text-green-500 fill-green-500/10 size-4"></i> 관심 사업 등록 및 관리</li>
-                        <li><i data-lucide="corner-down-right" class="inline-block text-green-500 fill-green-500/10 size-4"></i> 공고별 AI 분석 리포트 열람</li>
-                        <li><i data-lucide="corner-down-right" class="inline-block text-green-500 fill-green-500/10 size-4"></i> 지원사업 진행 상황 알림</li>
-                        <li><i data-lucide="x" class="inline-block text-gray-500 fill-gray-100 dark:text-dark-500 dark:fill-dark-850 size-4"></i> 컨소시엄 매칭</li>
-                        <li><i data-lucide="x" class="inline-block text-gray-500 fill-gray-100 dark:text-dark-500 dark:fill-dark-850 size-4"></i> 협업툴</li>
-                        <li><i data-lucide="x" class="inline-block text-gray-500 fill-gray-100 dark:text-dark-500 dark:fill-dark-850 size-4"></i> 24/7 전담 지원</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="relative overflow-hidden card active group" data-aos="fade-up" data-aos-duration="2000">
-                <div class="absolute border-[40px] border-gray-100 dark:border-dark-850 size-64 -bottom-16 -right-16 rounded-creative"></div>
-                <div class="relative lg:p-8 card-body">
-                    <div class="absolute right-5 top-5 badge badge-pink">인기 플랜</div>
-                    <div class="mb-8 text-center">
-                        <h5 class="mb-1">Growth</h5>
-                        <p class="mb-6 text-gray-500">컨소시엄 참여 희망 기업을 위한 기능 강화</p>
-                        <h1>₩159,000<sub class="text-sm text-gray-500">/월</sub></h1>
-                    </div>
-                    <a href="#!" class="w-full btn btn-primary">시작하기</a>
-                    <ul class="space-y-4 *:flex *:items-center *:gap-2 mt-7">
-                        <li><i data-lucide="corner-down-right" class="inline-block text-green-500 fill-green-500/10 size-4"></i> 컨소시엄 구성 매칭 (파트너 추천)</li>
-                        <li><i data-lucide="corner-down-right" class="inline-block text-green-500 fill-green-500/10 size-4"></i> 매칭룸 생성 및 관리</li>
-                        <li><i data-lucide="corner-down-right" class="inline-block text-green-500 fill-green-500/10 size-4"></i> 실시간 채팅 기능 포함</li>
-                        <li><i data-lucide="corner-down-right" class="inline-block text-green-500 fill-green-500/10 size-4"></i> 스타터 플랜의 모든 기능</li>
-                        <li><i data-lucide="x" class="inline-block text-gray-500 fill-gray-100 dark:text-dark-500 dark:fill-dark-850 size-4"></i> 협업툴 (컨소시엄 공동 작업 포함)</li>
-                        <li><i data-lucide="x" class="inline-block text-gray-500 fill-gray-100 dark:text-dark-500 dark:fill-dark-850 size-4"></i> 데이터 분석 대시보드</li>
-                        <li><i data-lucide="x" class="inline-block text-gray-500 fill-gray-100 dark:text-dark-500 dark:fill-dark-850 size-4"></i> 24/7 전담 지원</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="relative overflow-hidden card" data-aos="fade-up" data-aos-duration="2000">
-                <div class="absolute border-[40px] border-gray-100 dark:border-dark-850 size-64 -bottom-16 -right-16 rounded-creative"></div>
-                <div class="relative lg:p-8 card-body">
-                    <div class="mb-8 text-center">
-                        <h5 class="mb-1">Pro</h5>
-                        <p class="mb-6 text-gray-500 dark:text-dark-500">심화 분석 및 과제 관리 기업용</p>
-                        <h1>₩290,000<sub class="text-sm text-gray-500 dark:text-dark-500">/월</sub></h1>
-                    </div>
-                    <a href="#!" class="w-full btn btn-sub-gray">상담 문의</a>
-                    <ul class="space-y-4 *:flex *:items-center *:gap-2 mt-7">
-                        <li><i data-lucide="corner-down-right" class="inline-block text-green-500 fill-green-500/10 size-4"></i> 협업툴 (컨소시엄 공동 작업 포함)</li>
-                        <li><i data-lucide="corner-down-right" class="inline-block text-green-500 fill-green-500/10 size-4"></i> 데이터 분석 대시보드</li>
-                        <li><i data-lucide="corner-down-right" class="inline-block text-green-500 fill-green-500/10 size-4"></i> 관리자 모드 제공 및 팀원 규모 최대 확장</li>
-                        <li><i data-lucide="corner-down-right" class="inline-block text-green-500 fill-green-500/10 size-4"></i> 그로스 플랜의 모든 기능</li>
-                        <li><i data-lucide="corner-down-right" class="inline-block text-green-500 fill-green-500/10 size-4"></i> 프로젝트 관리</li>
-                        <li><i data-lucide="corner-down-right" class="inline-block text-green-500 fill-green-500/10 size-4"></i> 화상회의</li>
-                        <li><i data-lucide="corner-down-right" class="inline-block text-green-500 fill-green-500/10 size-4"></i> 24/7 전담 지원</li>
-                    </ul>
-                </div>
-            </div>
+<section id="features"
+  class="relative bg-[var(--color-bg)] dark:bg-dark-900
+         pt-15 pb-15 md:pt-8
+         md:min-h-[calc(100svh-3.75rem)]
+         flex items-start md:items-center">
+  <div class="container mx-auto xl:px-0">
+    <div class="max-w-3xl mx-auto mb-7 text-center">
+      <div class="ai-parent block w-fit mx-auto flex items-center justify-center gap-2 mb-3">
+        <div class="clipboardtext inline-flex items-center justify-center">
+            <img alt="" class="vector-icon w-6 h-6 dark:hidden"
+                src="assets/images/ClipboardText.svg" />
+            <img alt="" class="vector-icon w-6 h-6 hidden dark:inline-block"
+                src="assets/images/ClipboardTextd.svg" />          
         </div>
+        <b class="div-ai inline-flex items-center text-lg md:text-lg font-semibold
+        text-primary-600 dark:text-[#72A7FF]"> AI 리포트 </b>      </div>
+      <h2 class="w-fit mx-auto text-center text-3xl md:text-5xl font-bold leading-snug">
+        하나로 끝내는 AI 분석 리포트
+      </h2>
+      <p class="mt-5 mb-8 text-center text-sm md:text-lg text-gray-500 dark:text-dark-500 leading-relaxed">
+        판단에 필요한 핵심 인사이트만 담았어요.
+      </p>
     </div>
+
+    <div class="grid grid-cols-12 gap-x-space items-start md:items-center">
+      <div class="col-span-12 md:col-span-10 md:col-start-2 mt-0 md:mt-10 xl:mt-0">
+        <div class="w-11/12 mx-auto md:w-full">
+          <!-- 이미지 박스 -->
+          <div class="w-full h-full overflow-hidden
+                      px-[10px] pt-[20px] md:px-[30px] md:pt-[50px]
+                      rounded-[20px] md:rounded-[34px]
+                      bg-[#e9ecf2] text-center">
+            <div class="w-full h-full flex items-start md:items-center justify-center">
+              <img
+                src="assets/images/image 519@3x.png"
+                alt="AI 리포트 미리보기"
+                class="max-w-full max-h-full object-contain mx-auto"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<section class="relative md:pb-28" id="features">
-    <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto mb-12 text-center">
-            <h2 class="mb-3 leading-normal capitalize">파트너잇 핵심 기능</h2>
-            <p class="text-gray-500 dark:text-dark-500 text-16">AI 기반 매칭 시스템과 실시간 협업 도구로 최적의 파트너십을 구축하세요.</p>
+<section id="features"
+  class="relative bg-white dark:bg-dark-950
+         pt-15 pb-15 md:pt-8
+         md:min-h-[calc(100svh-3.75rem)]
+         flex items-start md:items-center">
+  <div class="container mx-auto xl:px-0">
+    <div class="max-w-3xl mx-auto mb-7 text-center">
+      <div class="ai-parent block w-fit mx-auto flex items-center justify-center gap-2 mb-3">
+        <div class="clipboardtext inline-flex items-center justify-center">
+          <img alt="" class="vector-icon w-6 h-6 dark:hidden" src="assets/images/Target.svg" />
+          <img alt="" class="vector-icon w-6 h-6 hidden dark:inline-block" src="assets/images/Targetd.svg" />
         </div>
-        <div class="grid grid-cols-12 gap-x-space">
-            <div class="col-span-12 row-span-2 text-center bg-gray-100 dark:bg-dark-900/40 md:col-span-3 card">
-                <div class="card-body">
-                    <img src="assets/images/email/features-1.png" alt="" class="w-full rounded-md dark:hidden">
-                    <img src="assets/images/email/features-1-dark.png" alt="" class="w-full rounded-md hidden dark:block">
-                    <h6 class="mt-4">간편한 계정 관리</h6>
-                </div>
-            </div>
-            <div class="col-span-12 row-span-2 text-center bg-gray-100 dark:bg-dark-900/40 md:col-span-5 card">
-                <div class="card-body">
-                    <img src="assets/images/email/features-2.png" alt="" class="w-full rounded-md dark:hidden">
-                    <img src="assets/images/email/features-2-dark.png" alt="" class="w-full hidden dark:block rounded-md">
-                    <h6 class="mt-4">Filter wise Email Lists</h6>
-                </div>
-            </div>
-            <div class="col-span-12 text-center bg-gray-100 dark:bg-dark-900/40 md:col-span-4 card">
-                <div class="space-y-8 card-body">
-                    <div>
-                        <img src="assets/images/email/features-3.png" alt="" class="w-full rounded-md dark:hidden">
-                        <img src="assets/images/email/features-3-dark.png" alt="" class="w-full rounded-md hidden dark:block">
-                        <h6 class="mt-4">Reply & New Added</h6>
-                    </div>
+        <b class="div-ai inline-flex items-center text-lg md:text-lg font-semibold
+                  text-primary-600 dark:text-[#72A7FF]"> 컨소시엄 매칭 </b>
+      </div>
 
-                    <div>
-                        <img src="assets/images/email/features-4.png" alt="" class="w-full rounded-md dark:hidden">
-                        <img src="assets/images/email/features-4-dark.png" alt="" class="w-full rounded-md hidden dark:block">
-                        <h6 class="mt-4">Email Reads</h6>
-                    </div>
-                </div>
-            </div>
-        </div>
+      <h2 class="w-fit mx-auto text-center text-3xl md:text-5xl font-bold leading-snug">
+        쉽고 빠르게 이어지는 협업
+      </h2>
+      <p class="mt-5 mb-8 text-center text-sm md:text-lg text-gray-500 dark:text-dark-500 leading-relaxed">
+        데이터가 만드는 최적의 파트너 지금 연결하세요
+      </p>
     </div>
+
+    <div class="grid grid-cols-12 gap-x-space items-start md:items-center">
+      <div class="col-span-12 md:col-span-10 md:col-start-2 mt-0 md:mt-10 xl:mt-0">
+        <!-- relative 래퍼: 겹쳐 배치 기준 -->
+        <div class="relative w-11/12 mx-auto md:w-full">
+          <!-- 이미지 박스 -->
+          <div class="w-full h-full overflow-hidden
+                      px-[10px] pt-[20px] md:px-[30px] md:pt-[50px]
+                      rounded-[20px] md:rounded-[34px]
+                      bg-primary-50 text-center">
+            <div class="w-full h-full flex items-start md:items-center justify-center">
+              <img
+                src="assets/images/image 514@3x.png"
+                alt="AI 리포트 미리보기"
+                class="max-w-full max-h-full object-contain mx-auto"
+              />
+            </div>
+          </div>
+
+          <img
+          src="assets/images/image 516@3x.png"
+          alt="보조 그래픽"
+          class="absolute z-10
+                 -right-3 -bottom-4           
+                 md:-right-6 md:-bottom-10   
+                 w-45 md:w-90                 
+                 transform origin-bottom-right
+                 drop-shadow-xl pointer-events-none select-none"
+        
+          loading="lazy" decoding="async"
+          data-aos="fade-up" data-aos-duration="2000"
+        />
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<section class="relative lg:py-24 bg-primary-900" id="cases">
-    <div class="container mx-auto px-4">
+ 
+<section id="pricing"
+  class="relative bg-[var(--color-bg)] dark:bg-dark-900
+         pt-15 pb-15 md:pt-8
+         md:min-h-[calc(100svh-3.75rem)]
+         flex items-start md:items-center">
+
+  <style>
+    .icon-grid { container-type: inline-size; }
+    .icon-tile { container-type: inline-size; }
+    @container (max-width: 72px) {
+      .icon-label { display: none; }
+      .icon-img { margin-bottom: 0; }
+    }
+    @container (max-width: 144px) {
+      .icon-label2 { display: none; }
+    }
+    @container (max-width: 60px) {
+      .icon-img { width: 1.5rem; height: 1.5rem; }
+    }
+  </style>
+
+  <div class="container mx-auto xl:px-0">
+    <!-- 섹션 헤더 -->
+    <div class="max-w-3xl mx-auto mb-7 text-center">
+      <div class="ai-parent block w-fit mx-auto flex items-center justify-center gap-2 mb-3">
+        <div class="clipboardtext inline-flex items-center justify-center">
+          <img alt="" class="vector-icon w-6 h-6 dark:hidden" src="assets/images/CreditCard.svg" />
+          <img alt="" class="vector-icon w-6 h-6 hidden dark:inline-block" src="assets/images/CreditCardd.svg" />
+        </div>
+        <b class="div-ai inline-flex items-center text-lg font-semibold
+                  text-primary-600 dark:text-[#72A7FF]">요금 정책</b>
+      </div>
+
+      <h2 class="w-fit mx-auto text-center text-3xl md:text-5xl font-bold leading-snug">
+        우리 회사에 맞는 합리적 플랜
+      </h2>
+      <p class="mt-5 mb-8 text-center text-sm md:text-lg text-gray-500 dark:text-dark-500 leading-relaxed">
+        기업 성장 단계에 맞춘 다양한 요금제와
+        <br class="md:hidden" />
+        부가서비스, 옵션이 준비되어 있어요!
+      </p>
+      
+    </div>
+
+    <!-- 모바일: Swiper 캐러셀 -->
+    <div class="md:hidden max-h-[100svh] w-full flex items-start md:items-center px-4">
+      <div class="swiper pricing-swiper">
+        <div class="swiper-wrapper">
+          <!-- slide 1: Starter -->
+          <div class="swiper-slide">
+          
+            <!-- [STARTER SLOT] -->
+            <div class="relative overflow-hidden border border-gray-200 dark:border-dark-800 bg-white dark:bg-dark-900 rounded-2xl shadow-sm"
+                  data-aos="fade-up" data-aos-duration="900">
+              <div class="absolute border-[40px] border-gray-100 dark:border-dark-850 size-64 -bottom-16 -right-16 rounded-creative"></div>
+      
+              <div class="relative p-6 lg:p-8">
+                <!-- 플랜 배지 -->
+                <div class="mx-auto mb-6 w-fit">
+                  <span class="inline-flex items-center justify-center rounded-full px-4 py-2
+                                text-[15px] font-semibold text-red-600 bg-rose-100 
+                                dark:bg-dark-800 dark:text-white">
+                    Starter
+                  </span>
+                </div>
+      
+                <!-- 설명 -->
+                <p class="mb-4 text-[21px] leading-[30px] font-medium text-gray-700 dark:text-dark-200 text-center">
+                  지원사업 정보 탐색 및<br />초기 분석에 특화
+                </p>
+      
+                <!-- 가격 -->
+                <div class="mb-6 flex items-end justify-center gap-2">
+                  <span class="text-[35px] leading-[30px] font-extrabold text-primary-600 dark:text-white tracking-[-0.02em]">
+                    89,000원
+                  </span>
+                  <span class="text-lg leading-[30px] font-medium text-gray-500 dark:text-dark-500">/월</span>
+                </div>
+      
+          <!-- 상단 아이콘 5 -->
+          <div class="mt-7 grid grid-cols-5 gap-1 md:gap-2 lg:gap-3 place-items-stretch icon-grid">
+              <!-- 공통: icon-tile / icon-img / icon-label -->
+              <div class="icon-tile rounded-lg bg-gray-100 dark:bg-dark-850 w-full aspect-square
+                          flex flex-col items-center justify-center overflow-hidden">
+              <img src="assets/images/1.svg" alt="맞춤공고" class="icon-img w-10 h-10 mb-1" />
+              <span class="icon-label text-[13px] leading-[13px] font-medium text-gray-700 dark:text-dark-200">
+                  맞춤공고
+              </span>
+              </div>
+          
+              <div class="icon-tile rounded-lg bg-gray-100 dark:bg-dark-850 w-full aspect-square
+                          flex flex-col items-center justify-center overflow-hidden">
+              <img src="assets/images/2.svg" alt="일정관리" class="icon-img w-10 h-10 mb-1" />
+              <span class="icon-label text-[13px] leading-[13px] font-medium text-gray-700 dark:text-dark-200">
+                  일정관리
+              </span>
+              </div>
+          
+              <div class="icon-tile rounded-lg bg-gray-100 dark:bg-dark-850 w-full aspect-square
+                          flex flex-col items-center justify-center overflow-hidden">
+              <img src="assets/images/3@3x.png" alt="AI 리포트" class="icon-img w-10 h-10 mb-1" />
+              <span class="icon-label text-[13px] leading-[13px] font-medium text-gray-700 dark:text-dark-200">
+                  AI 리포트
+              </span>
+              </div>
+          
+              <div class="icon-tile rounded-lg bg-gray-100 dark:bg-dark-850 w-full aspect-square
+                          flex flex-col items-center justify-center overflow-hidden">
+              <img src="assets/images/4.svg" alt="추천알림" class="icon-img w-10 h-10 mb-1" />
+              <span class="icon-label text-[13px] leading-[13px] font-medium text-gray-700 dark:text-dark-200">
+                  추천알림
+              </span>
+              </div>
+          
+              <div class="icon-tile rounded-lg bg-gray-100 dark:bg-dark-850 w-full aspect-square
+                          flex flex-col items-center justify-center overflow-hidden">
+              <img src="assets/images/5.svg" alt="AI 파트너" class="icon-img w-10 h-10 mb-1" />
+              <span class="icon-label text-[13px] leading-[13px] font-medium text-gray-700 dark:text-dark-200">
+                  AI 파트너
+              </span>
+              </div>
+          </div>
+          
+                <!-- 주요 기능 -->
+                <div class="mt-8">
+                  <div class="text-[21px] leading-4 font-semibold text-gray-800 dark:text-dark-100 mb-5">주요 기능</div>
+                  <ul class="space-y-3">
+                    <li class="flex items-center gap-2">
+                      <img src="assets/images/Vector 2979.svg" class="w-3 h-3" alt="" />
+                      <span class="text-17 text-[#4d5862] dark:text-white">
+                        AI 맞춤 공고 추천 및 매칭</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <img src="assets/images/Vector 2980.svg" class="w-3 h-3" alt="" />
+                      <span class="text-17 text-[#4d5862] dark:text-white">
+                        관심 사업 등록 및 관리</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <img src="assets/images/Vector 2981.svg" class="w-3 h-3" alt="" />
+                      <span class="text-17 text-[#4d5862] dark:text-white">
+                        공고별 AI 분석 리포트 열람</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <img src="assets/images/Vector 2982.svg" class="w-3 h-3" alt="" />
+                      <span class="text-17 text-[#4d5862] dark:text-white">
+                        지원사업 진행 상황 알림</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+           </div>
+
+          <!-- slide 2: Growth -->
+          <div class="swiper-slide">
+            <!-- [GROWTH SLOT] -->
+            <div class="relative overflow-hidden rounded-2xl bg-white dark:bg-dark-900
+                        border border-[#3C82F6] shadow-[2px_5px_15px_5px_rgba(60,130,246,0.2)]"
+                data-aos="fade-up" data-aos-duration="900" data-aos-delay="100">
+              <div class="absolute border-[40px] border-gray-100 dark:border-dark-850 size-64 -bottom-16 -right-16 rounded-creative"></div>
+
+                <div class="relative p-6 lg:p-8">
+                  <!-- 플랜 배지 -->
+                  <div class="mx-auto mb-6 w-fit">
+                    <span class="inline-flex items-center justify-center rounded-full px-4 py-2
+                                text-[15px] font-semibold text-[#3C82F6] bg-indigo-100 
+                                dark:bg-dark-800 dark:text-white">
+                      Growth
+                    </span>
+                  </div>
+
+                <!-- 설명 -->
+                <p class="mb-4 text-[21px] leading-[30px] font-medium text-gray-700 dark:text-dark-200 text-center">
+                  컨소시엄 참여 희망 기업을<br />위한 기능 강화
+                </p>
+
+                <!-- 가격 -->
+                <div class="mb-6 flex items-end justify-center gap-2">
+                  <span class="text-[35px] leading-[30px] font-extrabold text-primary-600 dark:text-white tracking-[-0.02em]">
+                    159,000원
+                  </span>
+                  <span class="text-lg leading-[30px] font-medium text-gray-500 dark:text-dark-500">/월</span>
+                </div>
+
+                <!-- 상단 아이콘 4 -->
+                <div class="mt-7 grid grid-cols-5
+                  gap-[0.3rem] md:gap-[0.5rem] lg:gap-[0.8rem]
+                  place-items-stretch icon-grid">
+                  <!-- Starter+ (큰 타일) -->
+                  <div class="icon-tile rounded-lg bg-gray-100 dark:bg-dark-850
+                              col-span-2 w-full flex flex-col items-center justify-center overflow-hidden">
+                    <img src="assets/images/6@3x.png" alt="Starter+" class="h-10 w-10 mb-0 object-contain" />
+                    <span class="icon-label2 text-[13px] leading-[15px] text-[#3C82F6] font-semibold">Starter+</span>
+                    <span class="icon-label2 text-[13px] leading-[13px] font-medium text-gray-700 dark:text-dark-200">모든 기능</span>
+                  </div>
+
+                  <!-- 컨소시엄 구성 -->
+                  <div class="icon-tile rounded-lg bg-gray-100 dark:bg-dark-850 w-full aspect-square
+                              flex flex-col items-center justify-center overflow-hidden">
+                    <img src="assets/images/7.svg" alt="컨소시엄 구성" class="icon-img w-10 h-10 mb-1" />
+                    <span class="icon-label  text-[13px] leading-[13px] font-medium text-gray-700 dark:text-dark-200 tracking-[-0.05em]">컨소시엄 구성</span>
+                  </div>
+
+                  <!-- 매칭룸 생성 -->
+                  <div class="icon-tile rounded-lg bg-gray-100 dark:bg-dark-850 w-full aspect-square
+                              flex flex-col items-center justify-center overflow-hidden">
+                    <img src="assets/images/8.svg" alt="매칭룸 생성" class="icon-img h-10 w-10 mb-1 object-contain" />
+                    <span class="icon-label text-[13px] leading-[13px] font-medium text-gray-700 dark:text-dark-200">
+                      매칭룸 생성
+                    </span>
+                  </div>
+
+                  <!-- 실시간 채팅 -->
+                  <div class="icon-tile rounded-lg bg-gray-100 dark:bg-dark-850 w-full aspect-square
+                              flex flex-col items-center justify-center overflow-hidden">
+                    <img src="assets/images/9.svg" alt="실시간 채팅" class="icon-img h-10 w-10 mb-1 object-contain" />
+                    <span class="icon-label text-[13px] leading-[13px] font-medium text-gray-700 dark:text-dark-200">
+                      실시간 채팅
+                    </span>
+                  </div>
+                </div>
+
+
+                <!-- 주요 기능 -->
+                <div class="mt-8">
+                  <div class="text-[21px] leading-4 font-semibold text-gray-800 dark:text-dark-100 mb-5">주요 기능</div>
+                  <ul class="space-y-3">
+                    <li class="flex items-center gap-2">
+                      <img src="assets/images/Vector 2979.svg" class="w-3 h-3" alt="" />
+                      <span class="text-17 text-[#4d5862] dark:text-white">
+                        컨소시엄 구성 매칭<span class="text-[15px] text-[#4d5862] dark:text-white"> (파트너 추천)</span>
+                    </li>
+
+                    <li class="flex items-center gap-2">
+                      <img src="assets/images/Vector 2979.svg" class="w-3 h-3" alt="" />
+                      <span class="text-17 text-[#4d5862] dark:text-white">
+                        매칭룸 생성 및 관리</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <img src="assets/images/Vector 2979.svg" class="w-3 h-3" alt="" />
+                      <span class="text-17 text-[#4d5862] dark:text-white">
+                        실시간 채팅 기능 포함</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <img src="assets/images/Vector 2979.svg" class="w-3 h-3" alt="" />
+                      <span class="text-17 text-[#4d5862] dark:text-white">
+                        스타터 플랜의 모든 기능</span>
+                    </li>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- slide 3: Pro -->
+          <div class="swiper-slide">
+            <!-- [PRO SLOT] -->
+            <div class="relative overflow-hidden border border-gray-200 dark:border-dark-800 bg-white dark:bg-dark-900 rounded-2xl shadow-sm"
+                  data-aos="fade-up" data-aos-duration="900" data-aos-delay="150">
+              <div class="absolute border-[40px] border-gray-100 dark:border-dark-850 size-64 -bottom-16 -right-16 rounded-creative"></div>
+      
+                <div class="relative p-6 lg:p-8">
+                  <!-- 플랜 배지 -->
+                  <div class="mx-auto mb-6 w-fit">
+                    <span class="inline-flex items-center justify-center rounded-full px-4 py-2
+                                  text-[15px] font-semibold text-purple-600 bg-purple-100
+                                  dark:bg-dark-800 dark:text-white">
+                      Pro
+                    </span>
+                  </div>
+      
+                <!-- 설명 -->
+                <p class="mb-4 text-[21px] leading-[30px] font-medium text-gray-700 dark:text-dark-200 text-center">
+                  심화 분석 및<br />과제 관리 기업용
+                </p>
+      
+                <!-- 가격 -->
+                <div class="mb-6 flex items-end justify-center gap-2">
+                  <span class="text-[35px] leading-[30px] font-extrabold text-primary-600 dark:text-white tracking-[-0.02em]">
+                    290,000원
+                  </span>
+                  <span class="text-lg leading-[30px] font-medium text-gray-500 dark:text-dark-500">/월</span>
+                </div>
+      
+      
+                <!-- 상단 아이콘 4 -->
+                <div class="mt-7 grid grid-cols-5
+                  gap-[0.3rem] md:gap-[0.5rem] lg:gap-[0.8rem]
+                  place-items-stretch icon-grid">
+                  <!-- Growth+ 모든 기능 (넓은 칸) -->
+                  <div class="icon-tile rounded-lg bg-gray-100 dark:bg-dark-850
+                              col-span-2 w-full flex flex-col items-center justify-center overflow-hidden">
+                    <img src="assets/images/6@3x.png" alt="Growth+" class="h-10 w-10 mb-0 object-contain" />
+                    <span class="icon-label2 text-[13px] leading-[15px] text-[#3C82F6] font-semibold">Growth+</span>
+                    <span class="icon-label2 text-[13px] leading-[13px] font-medium text-gray-700 dark:text-dark-200">모든 기능</span>
+                  </div>
+      
+                  <!-- 프로젝트 관리 -->
+                  <div class="icon-tile rounded-lg bg-gray-100 dark:bg-dark-850 w-full aspect-square
+                              flex flex-col items-center justify-center overflow-hidden">
+                    <img src="assets/images/10.svg" alt="프로젝트 관리" class="icon-img w-10 h-10 mb-1" />
+                    <span class="icon-label  text-[13px] leading-[13px] font-medium text-gray-700 dark:text-dark-200 tracking-[-0.05em]">프로젝트 관리</span>
+                  </div>
+      
+                  <!-- 클라우드 -->
+                  <div class="icon-tile rounded-lg bg-gray-100 dark:bg-dark-850 w-full aspect-square
+                              flex flex-col items-center justify-center overflow-hidden">
+                    <img src="assets/images/11.svg" alt="클라우드" class="icon-img h-10 w-10 mb-1 object-contain" />
+                    <span class="icon-label text-[13px] leading-[13px] font-medium text-gray-700 dark:text-dark-200">
+                      클라우드
+                    </span>
+                  </div>
+      
+                  <!-- 화상회의 -->
+                  <div class="icon-tile rounded-lg bg-gray-100 dark:bg-dark-850 w-full aspect-square
+                              flex flex-col items-center justify-center overflow-hidden">
+                    <img src="assets/images/12.svg" alt="화상회의" class="icon-img h-10 w-10 mb-1 object-contain" />
+                    <span class="icon-label text-[13px] leading-[13px] font-medium text-gray-700 dark:text-dark-200">
+                      화상회의
+                    </span>
+                  </div>
+                </div>
+      
+      
+      
+                <!-- 주요 기능 -->
+                <div class="mt-8">
+                  <div class="text-[21px] leading-4 font-semibold text-gray-800 dark:text-dark-100 mb-5">주요 기능</div>
+                  <ul class="space-y-3">
+                    <li class="flex items-center gap-2">
+                      <img src="assets/images/Vector 2979.svg" class="w-3 h-3" alt="" />
+                      <span class="text-17 text-[#4d5862] dark:text-white">
+                        협업툴<span class="text-[15px] text-[#4d5862] dark:text-white"> (컨소시엄 공동 작업 포함)</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <img src="assets/images/Vector 2979.svg" class="w-3 h-3" alt="" />
+                      <span class="text-17 text-[#4d5862] dark:text-white">
+                        데이터 분석 대시보드</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <img src="assets/images/Vector 2979.svg" class="w-3 h-3" alt="" />
+                      <span class="text-17 text-[#4d5862] dark:text-white">
+                        관리자 모드 제공 및 팀원 규모 최대 확장</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <img src="assets/images/Vector 2979.svg" class="w-3 h-3" alt="" />
+                      <span class="text-17 text-[#4d5862] dark:text-white">
+                        그로스 플랜의 모든 기능</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 데스크탑: 기존 그리드 -->
+    <div class="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-6 mx-4">
+      <!-- [STARTER SLOT - GRID] -->
+      <div class="relative overflow-hidden border border-gray-200 dark:border-dark-800 bg-white dark:bg-dark-900 rounded-2xl shadow-sm"
+           data-aos="fade-up" data-aos-duration="900">
+        <div class="absolute border-[40px] border-gray-100 dark:border-dark-850 size-64 -bottom-16 -right-16 rounded-creative"></div>
+
+        <div class="relative p-6 lg:p-8">
+          <!-- 플랜 배지 -->
+          <div class="mx-auto mb-6 w-fit">
+            <span class="inline-flex items-center justify-center rounded-full px-4 py-2
+                         text-[15px] font-semibold text-red-600 bg-rose-100 
+                         dark:bg-dark-800 dark:text-white">
+              Starter
+            </span>
+          </div>
+
+          <!-- 설명 -->
+          <p class="mb-4 text-[21px] leading-[30px] font-medium text-gray-700 dark:text-dark-200 text-center">
+            지원사업 정보 탐색 및<br />초기 분석에 특화
+          </p>
+
+          <!-- 가격 -->
+          <div class="mb-6 flex items-end justify-center gap-2">
+            <span class="text-[35px] leading-[30px] font-extrabold text-primary-600 dark:text-white tracking-[-0.02em]">
+              89,000원
+            </span>
+            <span class="text-lg leading-[30px] font-medium text-gray-500 dark:text-dark-500">/월</span>
+          </div>
+
+    <!-- 상단 아이콘 5 -->
+    <div class="mt-7 grid grid-cols-5 gap-1 md:gap-2 lg:gap-3 place-items-stretch icon-grid">
+        <!-- 공통: icon-tile / icon-img / icon-label -->
+        <div class="icon-tile rounded-lg bg-gray-100 dark:bg-dark-850 w-full aspect-square
+                    flex flex-col items-center justify-center overflow-hidden">
+        <img src="assets/images/1.svg" alt="맞춤공고" class="icon-img w-10 h-10 mb-1" />
+        <span class="icon-label text-[13px] leading-[13px] font-medium text-gray-700 dark:text-dark-200">
+            맞춤공고
+        </span>
+        </div>
+    
+        <div class="icon-tile rounded-lg bg-gray-100 dark:bg-dark-850 w-full aspect-square
+                    flex flex-col items-center justify-center overflow-hidden">
+        <img src="assets/images/2.svg" alt="일정관리" class="icon-img w-10 h-10 mb-1" />
+        <span class="icon-label text-[13px] leading-[13px] font-medium text-gray-700 dark:text-dark-200">
+            일정관리
+        </span>
+        </div>
+    
+        <div class="icon-tile rounded-lg bg-gray-100 dark:bg-dark-850 w-full aspect-square
+                    flex flex-col items-center justify-center overflow-hidden">
+        <img src="assets/images/3@3x.png" alt="AI 리포트" class="icon-img w-10 h-10 mb-1" />
+        <span class="icon-label text-[13px] leading-[13px] font-medium text-gray-700 dark:text-dark-200">
+            AI 리포트
+        </span>
+        </div>
+    
+        <div class="icon-tile rounded-lg bg-gray-100 dark:bg-dark-850 w-full aspect-square
+                    flex flex-col items-center justify-center overflow-hidden">
+        <img src="assets/images/4.svg" alt="추천알림" class="icon-img w-10 h-10 mb-1" />
+        <span class="icon-label text-[13px] leading-[13px] font-medium text-gray-700 dark:text-dark-200">
+            추천알림
+        </span>
+        </div>
+    
+        <div class="icon-tile rounded-lg bg-gray-100 dark:bg-dark-850 w-full aspect-square
+                    flex flex-col items-center justify-center overflow-hidden">
+        <img src="assets/images/5.svg" alt="AI 파트너" class="icon-img w-10 h-10 mb-1" />
+        <span class="icon-label text-[13px] leading-[13px] font-medium text-gray-700 dark:text-dark-200">
+            AI 파트너
+        </span>
+        </div>
+    </div>
+    
+          <!-- 주요 기능 -->
+          <div class="mt-8">
+            <div class="text-[21px] leading-4 font-semibold text-gray-800 dark:text-dark-100 mb-5">주요 기능</div>
+            <ul class="space-y-3">
+              <li class="flex items-center gap-2">
+                <img src="assets/images/Vector 2979.svg" class="w-3 h-3" alt="" />
+                <span class="text-17 text-[#4d5862] dark:text-white">
+                  AI 맞춤 공고 추천 및 매칭</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <img src="assets/images/Vector 2980.svg" class="w-3 h-3" alt="" />
+                <span class="text-17 text-[#4d5862] dark:text-white">
+                  관심 사업 등록 및 관리</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <img src="assets/images/Vector 2981.svg" class="w-3 h-3" alt="" />
+                <span class="text-17 text-[#4d5862] dark:text-white">
+                  공고별 AI 분석 리포트 열람</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <img src="assets/images/Vector 2982.svg" class="w-3 h-3" alt="" />
+                <span class="text-17 text-[#4d5862] dark:text-white">
+                  지원사업 진행 상황 알림</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- [GROWTH SLOT - GRID] -->
+      <div class="relative overflow-hidden rounded-2xl bg-white dark:bg-dark-900
+                  border border-[#3C82F6] shadow-[2px_5px_15px_5px_rgba(60,130,246,0.2)]"
+           data-aos="fade-up" data-aos-duration="900" data-aos-delay="100">
+        <div class="absolute border-[40px] border-gray-100 dark:border-dark-850 size-64 -bottom-16 -right-16 rounded-creative"></div>
+
+          <div class="relative p-6 lg:p-8">
+            <!-- 플랜 배지 -->
+            <div class="mx-auto mb-6 w-fit">
+              <span class="inline-flex items-center justify-center rounded-full px-4 py-2
+                           text-[15px] font-semibold text-[#3C82F6] bg-indigo-100 
+                           dark:bg-dark-800 dark:text-white">
+                Growth
+              </span>
+            </div>
+
+          <!-- 설명 -->
+          <p class="mb-4 text-[21px] leading-[30px] font-medium text-gray-700 dark:text-dark-200 text-center">
+            컨소시엄 참여 희망 기업을<br />위한 기능 강화
+          </p>
+
+          <!-- 가격 -->
+          <div class="mb-6 flex items-end justify-center gap-2">
+            <span class="text-[35px] leading-[30px] font-extrabold text-primary-600 dark:text-white tracking-[-0.02em]">
+              159,000원
+            </span>
+            <span class="text-lg leading-[30px] font-medium text-gray-500 dark:text-dark-500">/월</span>
+          </div>
+
+          <!-- 상단 아이콘 4 -->
+          <div class="mt-7 grid grid-cols-5
+            gap-[0.3rem] md:gap-[0.5rem] lg:gap-[0.8rem]
+            place-items-stretch icon-grid">
+            <!-- Starter+ (큰 타일) -->
+            <div class="icon-tile rounded-lg bg-gray-100 dark:bg-dark-850
+                        col-span-2 w-full flex flex-col items-center justify-center overflow-hidden">
+              <img src="assets/images/6@3x.png" alt="Starter+" class="h-10 w-10 mb-0 object-contain" />
+              <span class="icon-label2 text-[13px] leading-[15px] text-[#3C82F6] font-semibold">Starter+</span>
+              <span class="icon-label2 text-[13px] leading-[13px] font-medium text-gray-700 dark:text-dark-200">모든 기능</span>
+            </div>
+
+            <!-- 컨소시엄 구성 -->
+            <div class="icon-tile rounded-lg bg-gray-100 dark:bg-dark-850 w-full aspect-square
+                        flex flex-col items-center justify-center overflow-hidden">
+              <img src="assets/images/7.svg" alt="컨소시엄 구성" class="icon-img w-10 h-10 mb-1" />
+              <span class="icon-label  text-[13px] leading-[13px] font-medium text-gray-700 dark:text-dark-200 tracking-[-0.05em]">컨소시엄 구성</span>
+            </div>
+
+            <!-- 매칭룸 생성 -->
+            <div class="icon-tile rounded-lg bg-gray-100 dark:bg-dark-850 w-full aspect-square
+                        flex flex-col items-center justify-center overflow-hidden">
+              <img src="assets/images/8.svg" alt="매칭룸 생성" class="icon-img h-10 w-10 mb-1 object-contain" />
+              <span class="icon-label text-[13px] leading-[13px] font-medium text-gray-700 dark:text-dark-200">
+                매칭룸 생성
+              </span>
+            </div>
+
+            <!-- 실시간 채팅 -->
+            <div class="icon-tile rounded-lg bg-gray-100 dark:bg-dark-850 w-full aspect-square
+                        flex flex-col items-center justify-center overflow-hidden">
+              <img src="assets/images/9.svg" alt="실시간 채팅" class="icon-img h-10 w-10 mb-1 object-contain" />
+              <span class="icon-label text-[13px] leading-[13px] font-medium text-gray-700 dark:text-dark-200">
+                실시간 채팅
+              </span>
+            </div>
+          </div>
+
+
+          <!-- 주요 기능 -->
+          <div class="mt-8">
+            <div class="text-[21px] leading-4 font-semibold text-gray-800 dark:text-dark-100 mb-5">주요 기능</div>
+            <ul class="space-y-3">
+              <li class="flex items-center gap-2">
+                <img src="assets/images/Vector 2979.svg" class="w-3 h-3" alt="" />
+                <span class="text-17 text-[#4d5862] dark:text-white">
+                  컨소시엄 구성 매칭<span class="text-[15px] text-[#4d5862] dark:text-white"> (파트너 추천)</span>
+              </li>
+
+              <li class="flex items-center gap-2">
+                <img src="assets/images/Vector 2979.svg" class="w-3 h-3" alt="" />
+                <span class="text-17 text-[#4d5862] dark:text-white">
+                  매칭룸 생성 및 관리</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <img src="assets/images/Vector 2979.svg" class="w-3 h-3" alt="" />
+                <span class="text-17 text-[#4d5862] dark:text-white">
+                  실시간 채팅 기능 포함</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <img src="assets/images/Vector 2979.svg" class="w-3 h-3" alt="" />
+                <span class="text-17 text-[#4d5862] dark:text-white">
+                  스타터 플랜의 모든 기능</span>
+              </li>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- [PRO SLOT - GRID] -->
+      <div class="relative overflow-hidden border border-gray-200 dark:border-dark-800 bg-white dark:bg-dark-900 rounded-2xl shadow-sm"
+           data-aos="fade-up" data-aos-duration="900" data-aos-delay="150">
+        <div class="absolute border-[40px] border-gray-100 dark:border-dark-850 size-64 -bottom-16 -right-16 rounded-creative"></div>
+
+          <div class="relative p-6 lg:p-8">
+            <!-- 플랜 배지 -->
+            <div class="mx-auto mb-6 w-fit">
+              <span class="inline-flex items-center justify-center rounded-full px-4 py-2
+                           text-[15px] font-semibold text-purple-600 bg-purple-100
+                           dark:bg-dark-800 dark:text-white">
+                Pro
+              </span>
+            </div>
+
+          <!-- 설명 -->
+          <p class="mb-4 text-[21px] leading-[30px] font-medium text-gray-700 dark:text-dark-200 text-center">
+            심화 분석 및<br />과제 관리 기업용
+          </p>
+
+          <!-- 가격 -->
+          <div class="mb-6 flex items-end justify-center gap-2">
+            <span class="text-[35px] leading-[30px] font-extrabold text-primary-600 dark:text-white tracking-[-0.02em]">
+              290,000원
+            </span>
+            <span class="text-lg leading-[30px] font-medium text-gray-500 dark:text-dark-500">/월</span>
+          </div>
+
+
+          <!-- 상단 아이콘 4 -->
+          <div class="mt-7 grid grid-cols-5
+            gap-[0.3rem] md:gap-[0.5rem] lg:gap-[0.8rem]
+            place-items-stretch icon-grid">
+            <!-- Growth+ 모든 기능 (넓은 칸) -->
+            <div class="icon-tile rounded-lg bg-gray-100 dark:bg-dark-850
+                        col-span-2 w-full flex flex-col items-center justify-center overflow-hidden">
+              <img src="assets/images/6@3x.png" alt="Growth+" class="h-10 w-10 mb-0 object-contain" />
+              <span class="icon-label2 text-[13px] leading-[15px] text-[#3C82F6] font-semibold">Growth+</span>
+              <span class="icon-label2 text-[13px] leading-[13px] font-medium text-gray-700 dark:text-dark-200">모든 기능</span>
+            </div>
+
+            <!-- 프로젝트 관리 -->
+            <div class="icon-tile rounded-lg bg-gray-100 dark:bg-dark-850 w-full aspect-square
+                        flex flex-col items-center justify-center overflow-hidden">
+              <img src="assets/images/10.svg" alt="프로젝트 관리" class="icon-img w-10 h-10 mb-1" />
+              <span class="icon-label  text-[13px] leading-[13px] font-medium text-gray-700 dark:text-dark-200 tracking-[-0.05em]">프로젝트 관리</span>
+            </div>
+
+            <!-- 클라우드 -->
+            <div class="icon-tile rounded-lg bg-gray-100 dark:bg-dark-850 w-full aspect-square
+                        flex flex-col items-center justify-center overflow-hidden">
+              <img src="assets/images/11.svg" alt="클라우드" class="icon-img h-10 w-10 mb-1 object-contain" />
+              <span class="icon-label text-[13px] leading-[13px] font-medium text-gray-700 dark:text-dark-200">
+                클라우드
+              </span>
+            </div>
+
+            <!-- 화상회의 -->
+            <div class="icon-tile rounded-lg bg-gray-100 dark:bg-dark-850 w-full aspect-square
+                        flex flex-col items-center justify-center overflow-hidden">
+              <img src="assets/images/12.svg" alt="화상회의" class="icon-img h-10 w-10 mb-1 object-contain" />
+              <span class="icon-label text-[13px] leading-[13px] font-medium text-gray-700 dark:text-dark-200">
+                화상회의
+              </span>
+            </div>
+          </div>
+
+
+          <!-- 주요 기능 -->
+          <div class="mt-8">
+            <div class="text-[21px] leading-4 font-semibold text-gray-800 dark:text-dark-100 mb-5">주요 기능</div>
+            <ul class="space-y-3">
+              <li class="flex items-center gap-2">
+                <img src="assets/images/Vector 2979.svg" class="w-3 h-3" alt="" />
+                <span class="text-17 text-[#4d5862] dark:text-white">
+                  협업툴<span class="text-[15px] text-[#4d5862] dark:text-white"> (컨소시엄 공동 작업 포함)</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <img src="assets/images/Vector 2979.svg" class="w-3 h-3" alt="" />
+                <span class="text-17 text-[#4d5862] dark:text-white">
+                  데이터 분석 대시보드</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <img src="assets/images/Vector 2979.svg" class="w-3 h-3" alt="" />
+                <span class="text-17 text-[#4d5862] dark:text-white">
+                  관리자 모드 제공 및 팀원 규모 최대 확장</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <img src="assets/images/Vector 2979.svg" class="w-3 h-3" alt="" />
+                <span class="text-17 text-[#4d5862] dark:text-white">
+                  그로스 플랜의 모든 기능</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>      
+    </div>
+  </div>
+
+  <div class="pricing-pagination swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal"></div>
+</div>
+
+  <!-- Swiper CSS/JS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    (function () {
+      var container = document.querySelector('#pricing .pricing-swiper');
+      if (!container) return;
+  
+      new Swiper(container, {
+        slidesPerView: 1,
+        spaceBetween: 16,
+        autoHeight: true,
+        a11y: { enabled: true },
+        pagination: {
+          el: '#pricing .pricing-pagination', 
+          clickable: true,
+          renderBullet: function (index, className) {
+            return '<span class="' + className + '" tabindex="0" role="button" aria-label="Go to slide ' + (index + 1) + '"></span>';
+          }
+        }
+      });
+    })();
+  </script>
+</section>
+
+
+<section class="relative lg:py-24" id="cases">
+    <div class="absolute inset-0 z-0">
+        <img src="assets/images/image 707@3x.png" alt="Background image" class="absolute inset-0 w-full h-full object-cover z-[-1]">
+        <div class="absolute inset-0 bg-black opacity-60 z-0"></div>
+    </div>
+    <div class="container relative z-10 mx-auto px-4">
         <div class="lg:flex gap-x-16">
             <div class="w-full py-12 text-white lg:w-3/5 lg:py-0">
-                <h2 class="mb-2 leading-normal capitalize xl:text-5xl">파트너잇과 함께 성장하고 있는 <span class="text-primary-500">고객사</span>의 이야기</h2>
-                <p class="mb-5 text-lg text-white">고객사의 생생한 이야기를 소개합니다. AI 기반 매칭으로 성공한 실제 사례들을 확인해보세요.</p>
+                <h2 class="w-full text-3xl md:text-5xl mb-15 font-bold leading-snug">고객 사례 </h2>
+                <p class="mb-13 text-lg text-white">파트너잇과 함께 성장하고 있는 </br>
+                    고객사의 생생한 이야기를 소개합니다.</p>
                 <div class="flex flex-wrap items-center gap-3">
-                    <a href="#!" class="btn btn-primary">더 알아보기 <i data-lucide="move-right" class="inline-block ml-1 size-4"></i></a>
-                    <button type="button" class="btn">고객사례 보기 <i data-lucide="move-right" class="inline-block ml-1 size-4"></i></button>
+                    <a href="userstory.html" class="
+                        bg-primary-500
+                        text-white
+                        font-semibold
+                        px-4 py-2
+                        rounded-md
+                        hover:bg-primary-600
+                        focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-opacity-50
+                        transition-colors duration-200
+                        inline-flex items-center">
+                        자세히 알아보기
+                        <i data-lucide="move-right" class="inline-block ml-1 size-4"></i>
+                    </a>
                 </div>
             </div>
             <div class="lg:w-2/5">
-                <img src="assets/images/email/cta.png" alt="" class="w-[300px] mx-auto xl:scale-150 xl:-mt-16 relative object-cover rounded-lg ">
-            </div>
+                </div>
         </div>
     </div>
 </section>
 
 <section class="relative py-12 md:py-24" id="faq">
-    <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto mb-12 text-center">
-            <h2 class="mb-3 leading-normal capitalize">자주 묻는 질문</h2>
-            <p class="text-gray-500 dark:text-dark-500 text-16">파트너잇 서비스 이용 관련 궁금한 점을 확인할 수 있어요! <a href="#!" class="font-medium text-gray-800 dark:text-dark-100 underline">전체 FAQ 보기</a></p>
+
+      <!-- 섹션 헤더 -->
+      <div class="max-w-3xl mx-auto mb-7 text-center">
+        <div class="ai-parent block w-fit mx-auto flex items-center justify-center gap-2 mb-3">
+          <div class="clipboardtext inline-flex items-center justify-center">
+            <img alt="" class="vector-icon w-6 h-6 dark:hidden" src="assets/images/Question.svg" />
+            <img alt="" class="vector-icon w-6 h-6 hidden dark:inline-block" src="assets/images/Questiond.svg" />
+          </div>
+          <b class="div-ai inline-flex items-center text-lg font-semibold
+                    text-primary-600 dark:text-[#72A7FF]">FAQ`s</b>
         </div>
+  
+        <h2 class="w-fit mx-auto text-center text-3xl md:text-5xl font-bold leading-snug">
+          자주 묻는 질문
+        </h2>
+        <p class="mt-5 mb-10 text-center text-sm md:text-lg text-gray-500 dark:text-dark-500 leading-relaxed
+                  flex flex-col md:flex-row items-center justify-center gap-0 md:gap-1">
+          <span>파트너잇 서비스 이용 관련 궁금한 점을 확인할 수 있어요!</span>
+          <a href="#!" class="font-medium text-gray-800 dark:text-dark-100 underline decoration-2 underline-offset-2 md:ml-2">
+          전체 FAQ 보기
+          </a>
+        </p>
+        
+      </div>
+  
         <div class="grid grid-cols-12">
             <div class="col-span-12 lg:col-span-8 lg:col-start-3">
                 <div x-data="{selected:1}">
@@ -258,9 +1018,9 @@
                         <div class="relative overflow-hidden transition-all duration-700 max-h-0" x-ref="container1" x-bind:style="selected == 1 ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''">
                             <div class="p-5 text-gray-500 dark:text-dark-500">
                                 <ul class="space-y-2 list-disc list-inside">
-                                    <li>로그인 페이지 내의 <strong>비밀번호 찾기</strong> 버튼을 클릭하세요.</li>
-                                    <li>가입 시 지정한 <strong>개인 이메일</strong>로 <strong>임시 패스워드</strong>가 전송됩니다.</li>
-                                    <li>발급된 임시 패스워드로 로그인한 후에는 <strong>비밀번호를 꼭 변경하세요.</strong></li>
+                                    <p>로그인 페이지 내의 <strong>비밀번호 찾기</strong> 버튼을 클릭하세요.</p>
+                                    <p>가입 시 지정한 <strong>개인 이메일</strong>로 <strong>임시 패스워드</strong>가 전송됩니다.</p>
+                                    <p>발급된 임시 패스워드로 로그인한 후에는 <strong>비밀번호를 꼭 변경하세요.</strong></p>
                                 </ul>
                             </div>
                         </div>
@@ -275,7 +1035,7 @@
                         </button>
                         <div class="relative overflow-hidden transition-all duration-700 max-h-0" x-ref="container2" x-bind:style="selected == 2 ? 'max-height: ' + $refs.container2.scrollHeight + 'px' : ''">
                             <div class="p-5">
-                                <p>워크스페이스 &gt; 구성원 초대에서 이메일을 입력해 초대 링크를 전송하세요. 초대 수락 후 권한을 지정할 수 있어요.</p>
+                              <p class="text-gray-500 dark:text-dark-500">워크스페이스 &gt; 구성원 초대에서 이메일을 입력해 초대 링크를 전송하세요. 초대 수락 후 권한을 지정할 수 있어요.</p>
                             </div>
                         </div>
                     </div>
@@ -328,81 +1088,106 @@
 </section>
 
 
-<footer class="relative bg-gray-900 dark:bg-dark-900">
-    <div class="py-12 lg:py-20">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-12 gap-6">
-                <div class="col-span-12 xl:col-span-6">
-                    <div class="max-w-lg">
-                        <a href="index.html" title="logo"><img src="assets/images/logo-white.png" alt="" class="h-7"></a>
-                        <p class="mt-4 mb-6 text-gray-500 dark:text-dark-500 text-16">파트너잇은 기업과 파트너 간의 상생 협력을 통해 새로운 비즈니스 기회를 창출합니다. AI 기반 매칭 시스템으로 최적의 파트너십을 구축하세요.</p>
-                        <div class="flex items-center gap-5">
-                            <a href="#!" title="facebook" class="relative flex items-center justify-center transition duration-300 ease-linear hover:-translate-y-1 after:absolute after:inset-0 after:rounded-lg after:-rotate-45 after:bg-gray-800/50 dark:after:bg-dark-800/50 size-10 text-primary-500"><i data-lucide="facebook" class="relative z-10 size-5"></i></a>
-                            <a href="#!" title="dribbble" class="relative flex items-center justify-center text-pink-500 transition duration-300 ease-linear hover:-translate-y-1 after:absolute after:inset-0 after:rounded-lg after:-rotate-45 after:bg-gray-800/50 dark:after:bg-dark-800/50 size-10"><i data-lucide="dribbble" class="relative z-10 size-5"></i></a>
-                            <a href="#!" title="twitter" class="relative flex items-center justify-center transition duration-300 ease-linear hover:-translate-y-1 text-sky-500 after:absolute after:inset-0 after:rounded-lg after:-rotate-45 after:bg-gray-800/50 dark:after:bg-dark-800/50 size-10"><i data-lucide="twitter" class="relative z-10 size-5"></i></a>
-                            <a href="#!" title="youtube" class="relative flex items-center justify-center text-red-500 transition duration-300 ease-linear hover:-translate-y-1 after:absolute after:inset-0 after:rounded-lg after:-rotate-45 after:bg-gray-800/50 dark:after:bg-dark-800/50 size-10"><i data-lucide="youtube" class="relative z-10 size-5"></i></a>
-                        </div>
-                    </div>
-                </div><!--end col-->
-                <div class="col-span-12 md:col-span-4 xl:col-span-2">
-                    <h6 class="mb-4 text-gray-200 dark:text-dark-200 text-17">주요기능</h6>
-                    <ul class="space-y-5 text-16">
-                        <li><a href="#!" class="link link-primary">맞춤형 공고 매칭</a></li>
-                        <li><a href="#!" class="link link-primary">AI 분석 리포트</a></li>
-                        <li><a href="#!" class="link link-primary">컨소시엄 매칭</a></li>
-                        <li><a href="#!" class="link link-primary">통합 협업툴</a></li>
-                        <li><a href="#!" class="link link-primary">대시보드</a></li>
-                    </ul>
-                </div>
-                <div class="col-span-12 md:col-span-4 xl:col-span-2">
-                    <h6 class="mb-4 text-gray-200 text-17">파트너잇 소개</h6>
-                    <ul class="space-y-5 text-16">
-                        <li><a href="#!" class="link link-primary">회사 소개</a></li>
-                        <li><a href="#!" class="link link-primary">공지사항</a></li>
-                        <li><a href="#!" class="link link-primary">뉴스 & 미디어</a></li>
-                        <li><a href="#!" class="link link-primary">서비스 소개 자료</a></li>
-                        <li><a href="#!" class="link link-primary">요금안내</a></li>
-                        <li><a href="#!" class="link link-primary">고객 사례</a></li>
-                    </ul>
-                </div>
-                <div class="col-span-12 md:col-span-4 xl:col-span-2">
-                    <h6 class="mb-4 text-gray-200 text-17">고객지원</h6>
-                    <ul class="space-y-5 text-16">
-                        <li><a href="#!" class="link link-primary">도움말 센터</a></li>
-                        <li><a href="#!" class="link link-primary">사용자 가이드</a></li>
-                        <li><a href="#!" class="link link-primary">FAQ's</a></li>
-                        <li><a href="#!" class="link link-primary">개인 정보 정책</a></li>
-                        <li><a href="#!" class="link link-primary">서비스 이용약관</a></li>
-                    </ul>
-                </div>
-            </div>
+<footer class="relative bg-[#0B1040]">
+
+  <style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+
+  <div class="py-12 lg:py-20">
+    <div class="container mx-auto px-4 sm:px-6 xl:px-0">
+      <div class="grid grid-cols-12 gap-6 items-start">
+
+        <div class="col-span-12 xl:col-start-1 xl:col-span-2">
+          <a href="index.html" title="logo" class="inline-block">
+            <img src="assets/images/logo-white.svg" alt="Partnerit" class="h-7 md:h-8 xl:h-9 w-auto">
+          </a>
         </div>
-    </div>
-    <div class="container mx-auto px-4">
-        <div class="py-6 text-gray-500 dark:text-dark-500 text-16">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <p x-data="{ year: new Date().getFullYear() }">
-                        &copy; <span x-text="year"></span> Copyright 2025. Partnerit Company Inc. all right reserved.
-                    </p>
-                    <div class="mt-4 space-y-1 text-sm">
-                        <p>(주) 파트너잇 대표자 : 김남훈</p>
-                        <p>사업자등록번호 : 105-87-55645</p>
-                        <p>통신판매업신고번호 : 2020-부산센텀-3513</p>
-                        <p>주소 : 부산 해운대구 센텀중앙로 90, 큐비e센텀 917호</p>
-                        <p>고객센터 : 1668-3708 | 운영시간 : 09:00 ~ 17:00</p>
-                        <p>E-MAIL : partnerit@gmail.com</p>
-                    </div>
-                </div>
-                <div class="text-sm">
-                    <p>개인정보 처리방침 | 서비스 이용약관</p>
-                </div>
-            </div>
+
+        <div class="col-span-12 md:col-span-4 xl:col-start-3 xl:col-span-2">
+          <h6 class="mb-4 text-gray-200 text-17">주요기능</h6>
+          <ul class="space-y-2 md:space-y-5 text-[14px] md:text-16 text-[#AEB4CF]">
+            <li><a href="#!" class="hover:underline">맞춤형 공고 매칭</a></li>
+            <li><a href="#!" class="hover:underline">AI 분석 리포트</a></li>
+            <li><a href="#!" class="hover:underline">컨소시엄 매칭</a></li>
+            <li><a href="#!" class="hover:underline">통합 협업툴</a></li>
+            <li><a href="#!" class="hover:underline">대시보드</a></li>
+          </ul>
         </div>
+
+        <div class="col-span-12 md:col-span-4 xl:col-start-5 xl:col-span-2">
+          <h6 class="mb-4 text-gray-200 text-17">파트너잇 소개</h6>
+          <ul class="space-y-2 md:space-y-5  text-[14px] md:text-16 text-[#AEB4CF]">
+            <li><a href="#!" class="hover:underline">회사 소개</a></li>
+            <li><a href="#!" class="hover:underline">공지사항</a></li>
+            <li><a href="#!" class="hover:underline">뉴스 &amp; 미디어</a></li>
+            <li><a href="#!" class="hover:underline">서비스 소개 자료</a></li>
+            <li><a href="#!" class="hover:underline">요금안내</a></li>
+            <li><a href="#!" class="hover:underline">고객 사례</a></li>
+          </ul>
+        </div>
+
+        <div class="col-span-12 md:col-span-4 xl:col-start-7 xl:col-span-2">
+          <h6 class="mb-4 text-gray-200 text-17">고객지원</h6>
+          <ul class="space-y-2 md:space-y-5 text-[14px] md:text-16 text-[#AEB4CF]">
+            <li><a href="#!" class="hover:underline">도움말 센터</a></li>
+            <li><a href="#!" class="hover:underline">사용자 가이드</a></li>
+            <li><a href="#!" class="hover:underline">FAQ’s</a></li>
+            <li><a href="#!" class="hover:underline">개인 정보 정책</a></li>
+            <li><a href="#!" class="hover:underline">서비스 이용약관</a></li>
+          </ul>
+        </div>
+
+        <div class="col-span-12 xl:col-start-10 xl:col-span-3">
+          <div class="flex flex-col gap-4">
+
+            <div class="text-xs md:text-16 text-[#B8BEDA] space-y-1">
+              <p>(주) 파트너잇    대표자 : 김남훈</p>
+              <p>사업자등록번호 : 105-87-55645</p>
+              <p>통신판매업신고번호 : 2020-부산센텀-3513</p>
+              <p>주소 : 부산 해운대구 센텀중앙로 90, 큐비e센텀 917호</p>
+              <p>고객센터 : 1668-3708  |  운영시간 : 09:00 ~ 17:00</p>
+              <p>E-MAIL : partnerit@gmail.com</p>
+            </div>
+
+            <!-- 개인정보 처리방침 -->
+            <div class="text-xs md:text-sm text-[#B8BEDA]">
+              <p>개인정보 처리방침  |  서비스 이용약관</p>
+            </div>
+
+            <!-- 카피라이트 -->
+            <div class="text-xs text-[#B8BEDA]">
+              <p>© Copyright 2025. Partnerit Company Inc. all right reserved.</p>
+            </div>
+
+            <!-- 소셜 로고들 -->
+            <div class="flex items-center gap-3">
+              <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram" class="inline-block">
+                <img src="assets/images/Group 597.svg" alt="Instagram" class="h-7 md:h-9 w-auto hover:opacity-80 active:opacity-70 transition" />
+              </a>
+              <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook" class="inline-block">
+                <img src="assets/images/Facebook.svg" alt="Facebook" class="h-7 md:h-9 w-auto hover:opacity-80 active:opacity-70 transition" />
+              </a>
+              <a href="https://twitter.com/" target="_blank" rel="noopener" aria-label="Twitter" class="inline-block">
+                <img src="assets/images/Twitter.svg" alt="Twitter" class="h-7 md:h-9 w-auto hover:opacity-80 active:opacity-70 transition" />
+              </a>
+              <a href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="YouTube" class="inline-block">
+                <img src="assets/images/Youtube.svg" alt="YouTube" class="h-7 md:h-9 w-auto hover:opacity-80 active:opacity-70 transition" />
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
     </div>
+  </div>
 </footer>
 
-<button class="fixed flex items-center justify-center text-white ltr:right-0 rtl:left-0 bg-primary-500 ltr:rounded-l-md rtl:rounded-r-md size-12 top-1/2" x-on:click="let mode = document.querySelector('[data-mode]').getAttribute('data-mode');
+
+
+<button class="fixed flex items-center justify-center text-white ltr:right-0 rtl:left-0 bg-primary-500 ltr:rounded-l-md rtl:rounded-r-md size-12 top-7/8 z-[9999]" x-on:click="let mode = document.querySelector('[data-mode]').getAttribute('data-mode');
 let newMode = mode === 'light' ? 'dark' : 'light';
 document.querySelector('[data-mode]').setAttribute('data-mode', newMode);">
     <i data-lucide="moon" class="inline-block size-5 dark:hidden"></i>
@@ -410,8 +1195,6 @@ document.querySelector('[data-mode]').setAttribute('data-mode', newMode);">
 </button>
 
 {{> partials/vendor-scripts }}
-
-<script type="module" src="assets/js/landing/email.init.js"></script>
 
 <script>
     document.addEventListener("alpine:init", () => {
@@ -442,6 +1225,7 @@ document.querySelector('[data-mode]').setAttribute('data-mode', newMode);">
 </script>
 
 <script type="module" src="assets/js/main.js"></script>
+<script type="module" src="assets/js/landing/email.init.js"></script>
 
 </body>
 

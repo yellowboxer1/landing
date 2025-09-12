@@ -1,0 +1,266 @@
+{{> partials/main }}
+
+<head>
+
+    {{> partials/title-meta title="Badge" }}
+
+    {{> partials/head-css }}
+
+</head>
+
+{{> partials/body }}
+
+{{> partials/topbar }}
+{{> partials/sidebar }}
+
+{{> partials/page-wrapper }}
+
+{{> partials/page-heading title="Badge" sub-title="UI" }}
+
+<div class="grid grid-cols-12 gap-x-space">
+    <div class="col-span-12 card">
+        <div class="card-header">
+            <h6 class="card-title">Base Badge</h6>
+        </div>
+        <div class="card-body">
+            <div class="flex flex-wrap items-center gap-3">
+                <div x-data="{ 
+                            baseBadge: [
+                                { text: 'Primary', color: 'badge-primary'}, 
+                                { text: 'Purple', color: 'badge-purple'}, 
+                                { text: 'Green', color: 'badge-green'}, 
+                                { text: 'Red', color: 'badge-red'}, 
+                                { text: 'Yellow', color: 'badge-yellow'}, 
+                                { text: 'Sky', color: 'badge-sky'}, 
+                                { text: 'Pink', color: 'badge-pink'}, 
+                                { text: 'Indigo', color: 'badge-indigo'}, 
+                                { text: 'Orange', color: 'badge-orange'}, 
+                                { text: 'Light', color: 'badge-gray'}, 
+                            ] 
+                        }" class="flex flex-wrap gap-4">
+                    <template x-for="(badge, index) in baseBadge" :key="index">
+                        <span :class="badge.color + ' badge '" x-text="badge.text"></span>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div><!--end-->
+    <div class="col-span-12 card">
+        <div class="card-header">
+            <h6 class="card-title">Outline Badge</h6>
+        </div>
+        <div class="card-body">
+            <div class="flex flex-wrap items-center gap-3">
+                <div x-data="{ 
+                            outlineBadge: [
+                                { text: 'Primary', color: 'badge-outline-primary'}, 
+                                { text: 'Purple', color: 'badge-outline-purple'}, 
+                                { text: 'Green', color: 'badge-outline-green'}, 
+                                { text: 'Red', color: 'badge-outline-red'}, 
+                                { text: 'Yellow', color: 'badge-outline-yellow'}, 
+                                { text: 'Sky', color: 'badge-outline-sky'}, 
+                                { text: 'Pink', color: 'badge-outline-pink'}, 
+                                { text: 'Indigo', color: 'badge-outline-indigo'}, 
+                                { text: 'Orange', color: 'badge-outline-orange'}, 
+                                { text: 'Dark', color: 'badge-outline-gray'}, 
+                                { text: 'Light', color: 'bg-transparent text-gray-500 border-gray-200 dark:border-dark-800 dark:text-dark-500'}, 
+                            ] 
+                        }" class="flex flex-wrap gap-4">
+                    <template x-for="(badge, index) in outlineBadge" :key="index">
+                        <span :class="badge.color + ' badge '" x-text="badge.text"></span>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div><!--end-->
+
+    <div class="col-span-12 card">
+        <div class="card-header">
+            <h6 class="card-title">Soft Badge</h6>
+        </div>
+        <div class="card-body">
+            <div class="flex flex-wrap items-center gap-3">
+                <div x-data="{ 
+                            softBadge: [
+                                { text: 'Primary', color: 'badge-sub-primary'}, 
+                                { text: 'Purple', color: 'badge-sub-purple'}, 
+                                { text: 'Green', color: 'badge-sub-green'}, 
+                                { text: 'Red', color: 'badge-sub-red'}, 
+                                { text: 'Yellow', color: 'badge-sub-yellow'}, 
+                                { text: 'Sky', color: 'badge-sub-sky'}, 
+                                { text: 'Pink', color: 'badge-sub-pink'}, 
+                                { text: 'Indigo', color: 'badge-sub-indigo'}, 
+                                { text: 'Orange', color: 'badge-sub-orange'}, 
+                                { text: 'Dark', color: 'bg-gray-200 text-gray-800 border-gray-200 dark:border-dark-800 dark:text-dark-50 dark:bg-dark-850'}, 
+                                { text: 'Light', color: 'badge-sub-gray'}, 
+                            ] 
+                        }" class="flex flex-wrap gap-4">
+                    <template x-for="(badge, index) in softBadge" :key="index">
+                        <span :class="badge.color + ' badge '" x-text="badge.text"></span>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div><!--end-->
+
+    <div class="col-span-12 card">
+        <div class="card-header">
+            <h6 class="card-title">Solid Badge</h6>
+        </div>
+        <div class="card-body">
+            <div class="flex flex-wrap items-center gap-3">
+                <div x-data="{ 
+                            outlineBadge: [
+                                { text: 'Primary', color: 'badge-solid-primary'}, 
+                                { text: 'Purple', color: 'badge-solid-purple'}, 
+                                { text: 'Green', color: 'badge-solid-green'}, 
+                                { text: 'Red', color: 'badge-solid-red'}, 
+                                { text: 'Yellow', color: 'badge-solid-yellow'}, 
+                                { text: 'Sky', color: 'badge-solid-sky'}, 
+                                { text: 'Pink', color: 'badge-solid-pink'}, 
+                                { text: 'Indigo', color: 'badge-solid-indigo'}, 
+                                { text: 'orange', color: 'badge-solid-orange'}, 
+                                { text: 'Dark', color: 'badge-solid-gray'}, 
+                                { text: 'Light', color: 'bg-gray-200 text-gray-500 border-gray-200 dark:bg-dark-850 dark:border-dark-800 dark:text-dark-500'}, 
+                            ] 
+                        }" class="flex flex-wrap gap-4">
+                    <template x-for="(badge, index) in outlineBadge" :key="index">
+                        <span :class="badge.color + ' badge '" x-text="badge.text"></span>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div><!--end-->
+
+    <div class="col-span-12 card">
+        <div class="card-header">
+            <h6 class="card-title">Close Badge</h6>
+        </div>
+        <div class="card-body">
+            <div class="flex flex-wrap items-center gap-3">
+                <div x-data="{ 
+                            softBadge: [
+                                { text: 'Primary', color: 'btn-sub-primary'}, 
+                                { text: 'Purple', color: 'btn-sub-purple'}, 
+                                { text: 'Green', color: 'btn-sub-green'}, 
+                                { text: 'Red', color: 'btn-sub-red'}, 
+                                { text: 'Yellow', color: 'btn-sub-red'}, 
+                                { text: 'Sky', color: 'btn-sub-sky'}, 
+                                { text: 'Pink', color: 'btn-sub-pink'}, 
+                                { text: 'Dark', color: 'bg-gray-200 text-gray-800 border-gray-200 dark:border-dark-800 dark:text-dark-50 dark:bg-dark-850'}, 
+                                { text: 'Light', color: 'btn-sub-gray'}, 
+                            ],
+                            removeBadge(index) {
+                                this.softBadge.splice(index, 1);
+                            }
+                        }" class="flex flex-wrap gap-4">
+                    <template x-for="(badge, index) in softBadge" :key="index">
+                        <span :class="badge.color + ' badge flex items-center '">
+                            <span x-text="badge.text"></span>
+                            <a href="#!" x-on:click="removeBadge(index)" class="align-bottom"><i class="ltr:ml-1 rtl:mr-1 ri-close-fill"></i></a>
+                        </span>
+                    </template>
+                </div>
+
+            </div>
+        </div>
+    </div><!--end Link-->
+
+    <div class="col-span-12 lg:col-span-6 card">
+        <div class="card-header">
+            <h6 class="card-title">Square Badge</h6>
+        </div>
+        <div class="card-body">
+            <div class="flex flex-wrap items-center gap-3">
+                <div x-data="{ 
+                            squareBadge: [
+                                { text: '2', color: 'badge-sub-primary'}, 
+                                { text: '3', color: 'badge-sub-purple'}, 
+                                { text: '5', color: 'badge-outline-green'}, 
+                                { text: '4', color: 'badge-sub-red'}, 
+                                { text: '3', color: 'badge-solid-primary'}, 
+                                { text: '2', color: 'badge-primary'}, 
+                                { text: '1', color: 'badge-sub-pink'}, 
+                                { text: '2', color: 'bg-gray-200 text-gray-800 border-gray-200 dark:bg-dark-850 dark:border-dark-800 dark:text-dark-50'}, 
+                                { text: '3', color: 'badge-sub-gray'}, 
+                            ] 
+                        }" class="flex flex-wrap gap-4">
+                    <template x-for="(badge, index) in squareBadge" :key="index">
+                        <span :class="badge.color + ' badge-square '" x-text="badge.text"></span>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div><!--end-->
+
+    <div class="col-span-12 lg:col-span-6 card">
+        <div class="card-header">
+            <h6 class="card-title">Rounded Badge</h6>
+        </div>
+        <div class="card-body">
+            <div class="flex flex-wrap items-center gap-3">
+                <div x-data="{ 
+                            roundedBadge: [
+                                { text: 'Primary', color: 'badge-solid-primary'}, 
+                                { text: 'Purple', color: 'badge-sub-purple'}, 
+                                { text: 'Green', color: 'badge-outline-green'}, 
+                                { text: 'Red', color: 'badge-sub-red'}, 
+                            ] 
+                        }" class="flex flex-wrap gap-4">
+                    <template x-for="(badge, index) in roundedBadge" :key="index">
+                        <span :class="badge.color + ' inline-block px-1.5 py-0.5 rounded-full text-11 border font-medium '" x-text="badge.text"></span>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div><!--end-->
+
+    <div class="col-span-12 lg:col-span-6 card">
+        <div class="card-header">
+            <h6 class="card-title">Button Badge</h6>
+        </div>
+        <div class="card-body">
+            <div class="flex flex-wrap items-center gap-6">
+                <div class="relative">
+                    <button type="button" class="btn btn-primary">Notification</button>
+                    <span class="absolute !border-2 !border-white rounded-full dark:!border-dark-900 p-0 flex items-center justify-center badge badge-square badge-solid-red -top-2 -right-2">2</span>
+                </div>
+                <div class="relative">
+                    <button type="button" class="btn btn-primary">Notification</button>
+                    <span class="absolute !border-2 !border-white rounded-full dark:!border-dark-900 p-0 flex items-center justify-center badge badge-square badge-solid-green -bottom-2 -right-2">2</span>
+                </div>
+                <div class="relative">
+                    <button type="button" class="btn btn-primary">Notification</button>
+                    <span class="absolute !border-2 !border-white rounded-full dark:!border-dark-900 p-0 flex items-center justify-center badge badge-square badge-solid-yellow -top-2 -left-2">2</span>
+                </div>
+                <div class="relative">
+                    <button type="button" class="btn btn-primary">Notification</button>
+                    <span class="absolute !border-2 !border-white rounded-full dark:!border-dark-900 p-0 flex items-center justify-center badge badge-square badge-solid-sky -bottom-2 -left-2">2</span>
+                </div>
+            </div>
+        </div>
+    </div><!--end-->
+
+    <div class="col-span-12 lg:col-span-6 card">
+        <div class="card-header">
+            <h6 class="card-title">Inside Button Badge</h6>
+        </div>
+        <div class="card-body">
+            <div class="flex flex-wrap items-center gap-4">
+                <button type="button" class="btn btn-primary">Notification <span class="rounded-full badge badge-square badge-solid-red">2</span></button>
+                <button type="button" class="btn btn-primary">Notification <span class="rounded-full badge badge-square badge-solid-green">2</span></button>
+            </div>
+        </div>
+    </div><!--end-->
+</div><!--end grid-->
+
+</div>
+{{> partials/footer }}
+</div>
+
+
+{{> partials/vendor-scripts }}
+<script type="module" src="assets/js/main.js"></script>
+
+</body>
+</html>

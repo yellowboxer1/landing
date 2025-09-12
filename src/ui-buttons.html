@@ -1,0 +1,384 @@
+{{> partials/main }}
+
+<head>
+
+    {{> partials/title-meta title="Buttons" }}
+
+    {{> partials/head-css }}
+
+</head>
+
+{{> partials/body }}
+
+{{> partials/topbar }}
+{{> partials/sidebar }}
+
+{{> partials/page-wrapper }}
+
+{{> partials/page-heading title="Buttons" sub-title="UI" }}
+
+<div class="grid grid-cols-12 gap-x-space">
+    <div class="col-span-12 card">
+        <div class="card-header">
+            <h6 class="card-title">Base Buttons</h6>
+        </div>
+        <div class="card-body">
+            <div x-data="{ 
+                        baseButtons: [
+                            { text: 'Primary', color: 'btn-primary'}, 
+                            { text: 'Purple', color: 'btn-purple'}, 
+                            { text: 'Green', color: 'btn-green'}, 
+                            { text: 'Red', color: 'btn-red'}, 
+                            { text: 'Yellow', color: 'btn-yellow'}, 
+                            { text: 'Sky', color: 'btn-sky'}, 
+                            { text: 'Pink', color: 'btn-pink'}, 
+                            { text: 'Indigo', color: 'btn-indigo'}, 
+                            { text: 'Orange', color: 'btn-orange'}, 
+                            { text: 'Dark', color: 'btn-gray'}, 
+                            { text: 'Light', color: 'bg-gray-200 text-gray-800 border-gray-200 hover:bg-gray-300 hover:text-gray-800 hover:border-gray-300 focus:bg-gray-300 focus:text-gray-800 focus:border-gray-300'}, 
+                        ] 
+                    }" class="flex flex-wrap gap-4">
+                <template x-for="(button, index) in baseButtons" :key="index">
+                    <button :class="button.color + ' btn'" x-text="button.text">
+                    </button>
+                </template>
+            </div>
+        </div>
+    </div><!--Base Buttons-->
+
+    <div class="col-span-12 card">
+        <div class="card-header">
+            <h6 class="card-title">Outline Buttons</h6>
+        </div>
+        <div class="card-body">
+            <div x-data="{ 
+                        outlineButtons: [
+                            { text: 'Primary', color: 'btn-outline-primary'}, 
+                            { text: 'Purple', color: 'btn-outline-purple'}, 
+                            { text: 'Green', color: 'btn-outline-green'}, 
+                            { text: 'Red', color: 'btn-outline-red'}, 
+                            { text: 'Yellow', color: 'btn-outline-yellow'}, 
+                            { text: 'Sky', color: 'btn-outline-sky'}, 
+                            { text: 'Pink', color: 'btn-outline-pink'},  
+                            { text: 'Indigo', color: 'btn-outline-indigo'},  
+                            { text: 'Orange', color: 'btn-outline-orange'},  
+                            { text: 'Dark', color: 'btn-outline-gray'},  
+                            { text: 'Light', color: 'bg-transparent text-gray-500 border-gray-200 hover:bg-gray-200 hover:text-gray-500 hover:border-gray-200 focus:bg-gray-200 focus:text-gray-500 focus:border-gray-200'}, 
+                        ] 
+                    }" class="flex flex-wrap gap-4">
+                <template x-for="(button, index) in outlineButtons" :key="index">
+                    <button :class="button.color + ' btn '" x-text="button.text">
+                    </button>
+                </template>
+            </div>
+        </div>
+    </div><!--Outline Buttons-->
+
+    <div class="col-span-12 card">
+        <div class="card-header">
+            <h6 class="card-title">Soft Buttons</h6>
+        </div>
+        <div class="card-body">
+            <div x-data="{ 
+                        softButtons: [
+                            { text: 'Primary', color: 'btn-sub-primary'}, 
+                            { text: 'Purple', color: 'btn-sub-purple'}, 
+                            { text: 'Green', color: 'btn-sub-green'}, 
+                            { text: 'Red', color: 'btn-sub-red'}, 
+                            { text: 'Yellow', color: 'btn-sub-yellow'}, 
+                            { text: 'Sky', color: 'btn-sub-sky'}, 
+                            { text: 'Pink', color: 'btn-sub-pink'}, 
+                            { text: 'Indigo', color: 'btn-sub-indigo'}, 
+                            { text: 'Orange', color: 'btn-sub-orange'}, 
+                            { text: 'Dark', color: 'btn-sub-gray'}, 
+                        ] 
+                    }" class="flex flex-wrap gap-4">
+                <template x-for="(button, index) in softButtons" :key="index">
+                    <button :class="button.color + ' btn'" x-text="button.text">
+                    </button>
+                </template>
+            </div>
+        </div>
+    </div><!--Soft Buttons-->
+
+    <div class="col-span-12 card">
+        <div class="card-header">
+            <h6 class="card-title">3D Buttons</h6>
+        </div>
+        <div class="card-body">
+            <div x-data="{ 
+                        DButtons: [
+                            { text: 'Primary', color: 'btn-3d-primary'}, 
+                            { text: 'Purple', color: 'btn-3d-purple'}, 
+                            { text: 'Green', color: 'btn-3d-green'}, 
+                            { text: 'Red', color: 'btn-3d-red'}, 
+                            { text: 'Yellow', color: 'btn-3d-yellow'}, 
+                            { text: 'Sky', color: 'btn-3d-sky'}, 
+                            { text: 'Pink', color: 'btn-3d-pink'}, 
+                            { text: 'Dark', color: 'btn-3d-gray'}, 
+                            { text: 'Indigo', color: 'btn-3d-indigo'}, 
+                            { text: 'Orange', color: 'btn-3d-orange'}, 
+                            { text: 'Light', color: 'bg-gray-200 text-gray-800 border-gray-200 hover:bg-gray-300 hover:text-gray-800 hover:border-gray-300 focus:bg-gray-300 focus:text-gray-800 focus:border-gray-300 shadow-gray-400'}, 
+                        ] 
+                    }" class="flex flex-wrap gap-4">
+                <template x-for="(button, index) in DButtons" :key="index">
+                    <button :class="button.color + ' btn'" x-text="button.text">
+                    </button>
+                </template>
+            </div>
+        </div>
+    </div><!--3D Buttons-->
+
+    <div class="col-span-12 card">
+        <div class="card-header">
+            <h6 class="card-title">Outline Dashed Style</h6>
+        </div>
+        <div class="card-body">
+            <div x-data="{ 
+                        outlineDashedButtons: [
+                            { text: 'Primary', color: 'btn-dashed-primary'}, 
+                            { text: 'Purple', color: 'btn-dashed-purple'}, 
+                            { text: 'Green', color: 'btn-dashed-green'}, 
+                            { text: 'Red', color: 'btn-dashed-red'}, 
+                            { text: 'Yellow', color: 'btn-dashed-yellow'}, 
+                            { text: 'Sky', color: 'btn-dashed-sky'}, 
+                            { text: 'Pink', color: 'btn-dashed-pink'}, 
+                            { text: 'Indigo', color: 'btn-dashed-indigo'}, 
+                            { text: 'Orange', color: 'btn-dashed-orange'}, 
+                            { text: 'Dark', color: 'btn-dashed-gray'}, 
+                            { text: 'Light', color: 'bg-transparent text-gray-500 border-gray-200 hover:bg-gray-50 hover:text-gray-500 hover:border-gray-200 focus:bg-gray-50 focus:text-gray-500 focus:border-gray-200'}, 
+                        ] 
+                    }" class="flex flex-wrap gap-4">
+                <template x-for="(button, index) in outlineDashedButtons" :key="index">
+                    <button :class="button.color + ' btn border-dashed '" x-text="button.text">
+                    </button>
+                </template>
+            </div>
+        </div>
+    </div><!--Outline Dashed Style-->
+
+    <div class="col-span-12 card">
+        <div class="card-header">
+            <h6 class="card-title">Active Style</h6>
+        </div>
+        <div class="card-body">
+            <div x-data="{ 
+                        activeStyleButtons: [
+                            { text: 'Primary', color: 'btn-active-primary'}, 
+                            { text: 'Purple', color: 'btn-active-purple'}, 
+                            { text: 'Green', color: 'btn-active-green'}, 
+                            { text: 'Red', color: 'btn-active-red'}, 
+                            { text: 'Yellow', color: 'btn-active-yellow'}, 
+                            { text: 'Sky', color: 'btn-active-sky'}, 
+                            { text: 'Pink', color: 'btn-active-pink'}, 
+                            { text: 'Indigo', color: 'btn-active-indigo'}, 
+                            { text: 'Orange', color: 'btn-active-orange'}, 
+                            { text: 'Dark', color: 'btn-active-gray'}, 
+                        ] 
+                    }" class="flex flex-wrap gap-4">
+                <template x-for="(button, index) in activeStyleButtons" :key="index">
+                    <button :class="button.color + ' btn'" x-text="button.text">
+                    </button>
+                </template>
+            </div>
+        </div>
+    </div><!--Active Style-->
+
+    <div class="col-span-12 xl:col-span-6 card">
+        <div class="card-header">
+            <h6 class="card-title">Icon with Text</h6>
+        </div>
+        <div class="card-body">
+            <div class="flex flex-wrap gap-4">
+                <button class="btn btn-primary btn-icon-text">
+                    <i data-lucide="facebook" class="size-4"></i> Facebook
+                </button>
+                <button class="btn btn-pink btn-icon-text">
+                    <i data-lucide="instagram" class="size-4"></i> Instagram
+                </button>
+            </div>
+        </div>
+    </div><!--Icon with Text-->
+
+    <div class="col-span-12 xl:col-span-6 card">
+        <div class="card-header">
+            <h6 class="card-title">Icon Overlay with Text</h6>
+        </div>
+        <div class="card-body">
+            <div class="flex flex-wrap gap-4">
+                <button class="btn btn-purple btn-icon-overlay">
+                    <span class="icon"><i data-lucide="twitch" class="size-4"></i></span> Twitch
+                </button>
+                <button class="btn btn-sky btn-icon-overlay">
+                    <span class="icon"><i data-lucide="twitter" class="size-4"></i></span> Twitter
+                </button>
+                <button class="btn btn-red btn-icon-overlay right">
+                    <span class="icon"><i data-lucide="twitter" class="size-4"></i></span> Twitter
+                </button>
+            </div>
+        </div>
+    </div><!--Icon overlay with Text-->
+
+    <div class="col-span-12 card">
+        <div class="card-header">
+            <h6 class="card-title">Button Size</h6>
+        </div>
+        <div class="card-body">
+            <div class="flex flex-wrap items-center gap-4">
+                <button class="btn btn-primary btn-xs">
+                    Extra Small
+                </button>
+                <button class="btn btn-primary btn-sm">
+                    Small
+                </button>
+                <button class="btn btn-primary btn-md">
+                    Medium
+                </button>
+                <button class="btn btn-primary">
+                    Default
+                </button>
+                <button class="btn btn-primary btn-lg">
+                    Large
+                </button>
+            </div>
+        </div>
+    </div><!--Icon with Text-->
+
+    <div class="col-span-12 xl:col-span-6 card">
+        <div class="card-header">
+            <h6 class="card-title">Loading Buttons</h6>
+        </div>
+        <div class="card-body">
+            <div class="flex flex-wrap gap-4">
+                <div x-data="{ loadingButton: false, isActive: false }">
+                    <button @click="loadingButton = true; setTimeout(() => { loadingButton = false; isActive = !isActive; }, 2000)" class="btn btn-primary btn-icon-text">
+                        <span x-show="!isActive">Active</span>
+                        <span x-show="isActive">Unactive</span>
+                        <svg x-show="loadingButton" class="text-white size-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-0" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div x-data="{ loadingButton: false, isActive: false }">
+                    <button @click="loadingButton = true; setTimeout(() => { loadingButton = false; isActive = !isActive; }, 2000)" class="btn btn-purple btn-icon-text">
+                        <span x-show="!isActive">Launching</span>
+                        <span x-show="isActive">Welcome to Domiex 😍</span>
+                        <svg x-show="loadingButton" class="text-white size-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-0" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <div x-data="{ loadingButton: false, isActive: false }">
+                    <button @click="loadingButton = true; setTimeout(() => { loadingButton = false; isActive = !isActive; }, 2000)" class="btn btn-pink btn-icon-text">
+                        <span class="flex items-center gap-2" x-show="!isActive"><i class="ri-user-add-line"></i> Follow</span>
+                        <span class="flex items-center gap-2" x-show="isActive"><i class="ri-user-unfollow-line"></i> UnFollow</span>
+                        <svg x-show="loadingButton" class="text-white size-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-0" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div><!--Loading Buttons-->
+
+    <div class="col-span-12 xl:col-span-6 card">
+        <div class="card-header">
+            <h6 class="card-title">Rounded Buttons</h6>
+        </div>
+        <div class="card-body">
+            <div class="flex flex-wrap gap-4">
+                <button class="rounded-full btn btn-primary">Primary</button>
+                <button class="rounded-full btn btn-sub-primary">Primary</button>
+                <button class="rounded-full btn btn-outline-primary">Primary</button>
+                <button class="border-dashed rounded-full btn btn-dashed-primary">Primary</button>
+            </div>
+        </div>
+    </div><!--Rounded Buttons-->
+
+    <div class="col-span-12 xl:col-span-6 card">
+        <div class="card-header">
+            <h6 class="card-title">Hover Effect</h6>
+        </div>
+        <div class="card-body">
+            <div x-data="{ 
+                        hoverEffectButtons: [
+                            { text: 'Button Up', color: 'btn-primary hover:-translate-y-0.5'}, 
+                            { text: 'Button Down', color: 'btn-green hover:translate-y-0.5'}, 
+                            { text: 'Scale', color: 'btn-purple hover:scale-105'}, 
+                        ] 
+                    }" class="flex flex-wrap gap-4">
+                <template x-for="(button, index) in hoverEffectButtons" :key="index">
+                    <button :class="button.color + ' btn '" x-text="button.text">
+                    </button>
+                </template>
+            </div>
+        </div>
+    </div><!--Hover Effect-->
+
+    <div class="col-span-12 xl:col-span-6 card">
+        <div class="card-header">
+            <h6 class="card-title">Icon Buttons</h6>
+        </div>
+        <div class="card-body">
+            <div class="flex flex-wrap gap-4">
+                <button class="btn btn-red btn-icon"><i data-lucide="trash" class="size-4"></i></button>
+                <button class="btn btn-outline-green btn-icon"><i data-lucide="wrench" class="size-4"></i></button>
+                <button class="btn btn-sub-sky btn-icon"><i data-lucide="user" class="size-4"></i></button>
+            </div>
+        </div>
+    </div><!--Icon Buttons-->
+
+    <div class="col-span-12 xl:col-span-6 card">
+        <div class="card-header">
+            <h6 class="card-title">Hover Effect Buttons</h6>
+        </div>
+        <div class="card-body">
+            <div class="flex flex-wrap gap-4">
+                <button class="relative text-white group/effect bg-primary-500 border-primary-500 hover:bg-primary-600 hover:text-white hover:border-primary-600 focus:bg-primary-600 focus:text-white focus:border-primary-600 btn">
+                    <span class="absolute inset-0 overflow-hidden rounded-xl">
+                        <span class="absolute inset-0 rounded-xl bg-[image:radial-gradient(75%_100%_at_50%_0%,rgba(56,189,248,0.6)_0%,rgba(56,189,248,0)_75%)] opacity-0 transition-opacity duration-500 group-hover/effect:opacity-100">
+                        </span>
+                    </span>
+                    <span>Lets get started</span>
+                </button>
+                <button class="relative text-white bg-gray-700 border-gray-700 group/effect hover:bg-gray-800 hover:text-white hover:border-gray-800 focus:bg-gray-800 focus:text-white focus:border-gray-800 btn">
+                    <span class="absolute inset-0 overflow-hidden rounded-xl">
+                        <span class="absolute inset-0 rounded-xl bg-[image:radial-gradient(75%_100%_at_50%_0%,rgba(56,189,248,0.6)_0%,rgba(56,189,248,0)_75%)] opacity-0 transition-opacity duration-500 group-hover/effect:opacity-100">
+                        </span>
+                    </span>
+                    <span>Lets get started</span>
+                </button>
+            </div>
+        </div>
+    </div><!--Disabled Buttons-->
+
+    <div class="col-span-12 xl:col-span-6 card">
+        <div class="card-header">
+            <h6 class="card-title">Disabled Buttons</h6>
+        </div>
+        <div class="card-body">
+            <div class="flex flex-wrap gap-4">
+                <button class="btn btn-primary" disabled>Disabled</button>
+                <button class="btn btn-sub-primary" disabled>Disabled</button>
+                <button class="btn btn-outline-primary" disabled>Disabled</button>
+                <button class="border-dashed btn btn-dashed-primary" disabled>Disabled</button>
+            </div>
+        </div>
+    </div><!--Disabled Buttons-->
+
+</div>
+
+</div>
+{{> partials/footer }}
+</div>
+
+
+{{> partials/vendor-scripts }}
+<script type="module" src="assets/js/main.js"></script>
+
+</body>
+</html>
