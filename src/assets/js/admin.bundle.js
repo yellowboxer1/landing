@@ -1,6 +1,6 @@
 /*
-Template Name: Domiex - Admin & Dashboard Template
-Author: SRBThemes
+Template Name: 파트너잇 - 새로운 공고 매칭의 시작
+Author: 파트너잇
 Version: 1.0.0
 File: admin bundle Js File
 */
